@@ -5,7 +5,7 @@ var table = d3.csvParse(data, function(d,i){
     return{
 	id: d.Course,
 	parentId: d.Prereq,
-	selected:false};
+	selected: parseInt(d.State) == 2?false:true};
 });
 
 console.log(table);
@@ -13,8 +13,8 @@ console.log(table);
 var treeData = d3.stratify()(table);
 
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 1920 - margin.right - margin.left,
-    height = 1080 - margin.top - margin.bottom;
+    width = document.documentElement.clientWidth - margin.right - margin.left,
+    height = document.documentElement.clientHeight - margin.top - margin.bottom;
 
 var i = 0;
 var currdepth = 1;
