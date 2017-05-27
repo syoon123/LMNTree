@@ -8,6 +8,7 @@ var table = d3.csvParse(data, function(d,i){
 
 
 var treeData = d3.stratify()(table);
+/*
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
  width = 960 - margin.right - margin.left,
  height = 500 - margin.top - margin.bottom;
@@ -51,7 +52,7 @@ function update(source) {
 
   nodeEnter.append("rect")
 	.attr("width", 35)
-	.attr("height", 15)
+	.attr("height", 15).attr("y",-10)
 	.style("fill", "#fff").style("stroke-width","3").style("stroke","rgb(0,0,0)");
 
   nodeEnter.append("text")
@@ -73,7 +74,7 @@ function update(source) {
    .attr("d", diagonal);
 
 }
-/*
+*/
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
 	width = 960 - margin.right - margin.left,
 	height = 500 - margin.top - margin.bottom;
@@ -129,7 +130,7 @@ function update(source) {
 	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
 	  .attr("dy", ".35em")
 	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-	  .text(function(d) { return d.name; })
+	  .text(function(d) { return d.id; })
 	  .style("fill-opacity", 1e-6);
 
   // Transition nodes to their new position.
@@ -200,4 +201,4 @@ function click(d) {
   }
   update(d);
 }
-*/
+
