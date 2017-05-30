@@ -1,18 +1,17 @@
 import math
 
-
-
 class Course(object):
     # Attributes and Constructor
     # ============================================
     # Initialization
-    # String   name      : 
+    # String   name      :
+    # String   state     :
     # Course[] parents   :
     # Course[] children  : 
     # ============================================
-    def __init__(self, name, parents=[], children=[]):
+    def __init__(self, name, state,  parents=[], children=[]):
         self.name = name
-        # self.desc = [Do we need this?]
+        self.state = state
         self.parents = parents
         self.children = children
         self.depth = -1 # Uninitialized
@@ -22,7 +21,7 @@ class Course(object):
         return self.parents
     def getChildren():
         return self.children
-    def getDepth():
+    def getDepth(): # Is this necessary anymore?
         if (self.depth == -1):
             if (len(getParents()) == 0):
                 self.depth = 0
