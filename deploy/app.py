@@ -19,9 +19,6 @@ def home():
 def class_selector():
     return render_template('class_selector.html')
 
-@app.route("/checkbox_test", methods = ['GET'])
-def checkbox_test():
-    return render_template('fix.html')
 if __name__ == "__main__":
     app.debug = True
     app.run()
