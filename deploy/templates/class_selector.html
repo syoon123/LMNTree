@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Select Your Classes</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="static/css/class_selector.css">
@@ -26,8 +26,8 @@
             <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success" autocomplete="off" />
             <div class="[ btn-group ]">
                 <label for="fancy-checkbox-success" class="[ btn btn-success ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
+                    <span class="[ glyphicon glyphicon-ok ]" style="display:inline-block"></span>
+                    <span style="display:none"> </span>
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">
                     Course 146
@@ -382,16 +382,10 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type = "text/javascript">
     console.log("xd");
     $(".btn-group").click(function() {
-        if (event.target.parentNode.childNodes[1].childNodes[1].display == "none") {
-            console.log("no display");
-        }
-        else {
-            console.log(event.target.parentNode.childNodes[1]);
-        }
+        console.log($(this.childNodes[1].childNodes[1]))
     })
 </script>
 </html>
