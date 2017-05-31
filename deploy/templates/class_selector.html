@@ -382,10 +382,16 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type = "text/javascript">
-  $(".button-group").click(function() {
-  console.log("xd");
-  }
+    console.log("xd");
+    $(".btn-group").click(function() {
+        if (event.target.parentNode.childNodes[1].childNodes[1].display == "none") {
+            console.log("no display");
+        }
+        else {
+            console.log(event.target.parentNode.childNodes[1]);
+        }
+    })
 </script>
 </html>
