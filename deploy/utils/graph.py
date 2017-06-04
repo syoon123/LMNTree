@@ -17,11 +17,11 @@ class Course(object):
         self.state = state
         self.category = category
         self.children = []
-        self.prereqs = (parents, numRequired)
+        self.prereqs = [parents, numRequired]
         self.depth = -1 # Uninitialized
 
     def __str__(self):
-        return self.name# + "\nParents: " + str(self.prereqs[0]) + "\nChildren: " + str(self.children + "\n")
+        return "COURSE " + self.name
         
     # Mutators and Accessors
     def getCode(self):
@@ -35,6 +35,8 @@ class Course(object):
     '''
     def getPrereqs(self):
         return self.prereqs
+    def getParents(self):
+        return self.prereqs[0]
     def getChildren(self):
         return self.children
     def getDepth(self): # This will probably have to change
@@ -43,10 +45,13 @@ class Course(object):
                 self.depth = 0
             self.depth = 1 + max([course.getDepth() for course in getPrereqs()[0]])
         return self.depth
+
     def setState(self,newState):
         old = getState()
         self.state = newState
         return old
+    def setParents(self,parents):
+        self.prereqs[0] = parents
 
     # Propogating Up
     def propogate(self):
