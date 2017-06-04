@@ -6,7 +6,7 @@ class Course(object):
     # Initialization
     # String   code      :
     # String   state     :
-    # String   category  :    
+    # String[] category  :    
     # Course[] parents   :
     # int numRequired    :
     # Course[] children  :
