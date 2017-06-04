@@ -4,14 +4,18 @@ class Course(object):
     # Attributes and Constructor
     # ============================================
     # Initialization
-    # String   name      :
+    # String   code      :
     # String   state     :
+    # String   category  :    
     # Course[] parents   :
-    # Course[] children  : 
+    # int numRequired    :
+    # Course[] children  :
+    # int depth          :
     # ============================================
-    def __init__(self, code, state,  parents=[], numRequired, children=[]):
+    def __init__(self, code, state, category, parents=[], numRequired, children=[]):
         self.code = code
         self.state = state
+        self.category = category
         self.prereqs = (parents, numRequired)
         self.children = children
         self.depth = -1 # Uninitialized
@@ -64,5 +68,6 @@ class Course(object):
         elif self.getState() == 2:
             self.propogateMaybe()
             
-    
+
+
 
