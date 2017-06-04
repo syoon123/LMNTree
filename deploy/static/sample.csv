@@ -1,30 +1,44 @@
-Course,Prereq
-148,141
-146,141
-141,50
-124,50
-134,50
-121,50
-187,121
-125,50
-127,124
-181,124
-182,124
-136,181
-189,181
-108,50
-105,50
-109a,50
-109b,109a
-171,50
-179,50
-143,50
-144r,143
-61,50
-165,61
-51,50
-153,51
-161,61
-152,51
-175,51
-50,
+Mother Node,,0,,
+Freshman Biology 1,Mother Node,1,1,FreshBio
+Freshman Composition 1,Mother Node,1,1,FreshComp
+Algebra & Geometry 1,Mother Node,1,,Geo|Math
+Geometry 1,Mother Node,1,,Geo|Math
+Language 1,Mother Node,1,1,Language
+Art Appreciation 1,Mother Node,1,1,ArtApp
+Music Appreciation 1,Mother Node,1,1,MusicApp
+PE 1,Mother Node,1,1,PE
+Global History 1,Mother Node,1,,Global|SS
+AP Human Geography 1,Mother Node,1,,Global|SS
+Freshman Biology 2,Freshman Biology 1,1,,FreshBio
+Freshman Composition 2,Freshman Compostion 1,1,,FreshComp
+Alegbra & Geometry 2,Alegbra & Geometry 1,1,,Geo|Math
+Geometry 2,Geometry 1,1,,Geo|Math
+PE 2,PE 1,1,,PE
+Global History 2,Global History 1,1,,Global|SS
+Language 2,Language 1,1,,Language
+AP Human Geography 2,AP Human Geography 1,1,,Global|SS
+Trigonometry 1,Alegbra & Geometry 2|Geometry 2,1,1,Trig|Math
+Trigonometry 2,Trigonometry 1,1,1,Trig|Math
+Advanced Algebra 1,Trigonometry 2,1,,Math
+Advanced Algebra 2,Advanced Algebra 1,1,,Math
+Precalculus 1,Trigonometry 2,1,,Math
+Precalculus 2,Precalculus 1,1,,Math
+Calculus Applications 1,Precalculus 2|Advanced Algebra 2,1,,Math
+Calculus Applications 2,Calculus Applications 1,1,,Math
+Calculus AB 1,Precalculus 2|Advanced Algebra 2,1,,Math
+Calculus AB 2,Calculus AB 1,1,,Math
+Calculus BC 1,Precalculus 2|Advanced Algebra 2,1,,Math
+Calculus BC 2,Calculus BC 2,1,,Math
+Mathematical Explorations 1,Precalculus 2|Advanced Algebra 2,1,,Math
+Mathematical Explorations 2,Mathematical Explorations 1,1,,Math
+Human Reasoning 1,Precalculus 2|Advanced Algebra 2,1,,Math
+Human Reasoning 2,Human Reasoning 1,1,,Math
+AP Statistics 1,Trigonometry 2,1,,Math
+AP Statistics 2,AP Statistics 1,1,,Math
+Mulivariable Mathematics 1,Calculus AB 2|Calculus BC 2|AP Calculus & Precalculus 2,1,,Math
+Mulivariable Mathematics 2,Mulivariable Mathematics 1,1,,Math
+AP Calculus & Precalculus 1,Trigonometry 1,1,,Math
+AP Calculus & Precalculus 2,AP Calculus & Precalculus 1,1,,Math
+Mathematical Analysis of Sports,Trigonometry 2,1,,Math
+Mathematics of Financial Markets,Trigonometry 2,1,,Math
+Statistics ,Trigonometry 2,1,,Math

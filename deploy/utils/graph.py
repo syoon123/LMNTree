@@ -7,16 +7,21 @@ class Course(object):
     # String   name      :
     # String   state     :
     # String[] category  :    
-    # Course[] parents   :
+    # String[] parents   :
+    # String[] children  :
     # int numRequired    :
     # int depth          :
     # ============================================
-    def __init__(self, name, state, category, parents=[], numRequired):
+    def __init__(self, name, state, numRequired, category=[], parents=[]):
         self.name = name
         self.state = state
         self.category = category
+        self.children = []
         self.prereqs = (parents, numRequired)
         self.depth = -1 # Uninitialized
+
+    def __str__(self):
+        return self.name# + "\nParents: " + str(self.prereqs[0]) + "\nChildren: " + str(self.children + "\n")
         
     # Mutators and Accessors
     def getCode(self):
