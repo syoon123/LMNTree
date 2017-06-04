@@ -17,38 +17,52 @@ class Course(object):
         self.depth = -1 # Uninitialized
         
     # Mutators and Accessors
-    def getCode():
+    def getCode(self):
         return self.code
-    def getState():
+    def getState(self):
         return self.state
-    def getPrereqs():
+    '''
+    0: unmarked
+    1: required/selected
+    2: maybe
+    '''
+    def getPrereqs(self):
         return self.prereqs
-    def getChildren():
+    def getChildren(self):
         return self.children
-    def getDepth(): # This will probably have to change
+    def getDepth(self): # This will probably have to change
         if (self.depth == -1):
             if (len(getPrereqs()[0]) == 0):
                 self.depth = 0
             self.depth = 1 + max([course.getDepth() for course in getPrereqs()[0]])
         return self.depth
-    def setState(newState):
+    def setState(self,newState):
         old = getState()
         self.state = newState
         return old
 
     # Propogating Up
-    def propogate():
-        if getDepth() == 0:
+    def propogate(self):
+        def propogateMaybe(self):            
+            count = 0
+            for parent in self.getPrereqs()[0]:
+                if parent.getState() == 1:
+                    parent.propogate()
+                    count += 1
+            if count == 0:
+                for parent in self.getPrereqs()[0]:
+                    parent.setState(2)
+                    parent.propogate()
+        if self.getDepth() == 0:
             return
-        if getState() == 1: # required/selected
-
-            if len(getPrereqs()[0]) == 1:
-                getPrereqs()[0][0].setState(1)
-                getPrereqs()[0][0].propogate()
+        if self.getState() == 1: 
+            if len(self.getPrereqs()[0]) == 1:
+                self.getPrereqs()[0][0].setState(1)
+                self.getPrereqs()[0][0].propogate()
             else:
-               def propogateMaybe():
-                   # should work the same way for if current node's state is maybe
-                        
+                self.propogateMaybe()
+        elif self.getState() == 2:
+            self.propogateMaybe()
             
     
 
