@@ -42,19 +42,27 @@ function update(source) {
   nodes.forEach(function(d) { d.y = d.depth * 180; });
 
   // Declare the nodesâ€¦
-  var node = svg.selectAll("g.node")
-   .data(nodes, function(d) { return d.id || (d.id = ++i); });
+    var node = svg.selectAll("g.node")
+	.attr('selected',false)
+	.data(nodes, function(d) { return d.id || (d.id = ++i); });
 
   // Enter the nodes.
   var nodeEnter = node.enter().append("g")
-   .attr("class", "node")
+      .attr("class", "node")
+    //untested
+      .on('click', function(d){console.log(d);})//d3.select(d).attr('selected', d3.select(d).attr('selected')?false:true) } ) 
    .attr("transform", function(d) { 
     return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeEnter.append("rect")
 	.attr("width", 35)
-	.attr("height", 15).attr("y",-10)
-	.style("fill", "#fff").style("stroke-width","3").style("stroke","rgb(0,0,0)");
+	.attr("height", 20).attr("y",-10)
+	.style("fill", "#fff").style("stroke-width","1")
+	.style("stroke","rgb(0,0,0)")
+    //untested
+	.on('click', function(d){
+	    d3.select(d).style("fill", "green")}
+	   );
 
   nodeEnter.append("text")
    .attr("x", function(d) { 
