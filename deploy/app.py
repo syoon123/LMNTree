@@ -8,7 +8,7 @@ app.secret_key = 'imagine-you-are-a-light-molecule...'
 
 state = 'New York'
 year = '1977'
-
+f = open('static/sample.csv','r').read()
 course_selector_courses = course_selector.convert_csv_to_dict()
 @app.route("/d3test", methods = ['GET', 'POST'])
 # displays the data visualization
