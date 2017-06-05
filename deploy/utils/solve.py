@@ -1,4 +1,4 @@
-#import graph,
+B#import graph,
 import csv
 from graph import Course
 
@@ -11,7 +11,8 @@ coursedict = {}
 for course in raw:
     c = course.split(",")
     coursedict[c[0]] = Course(c[0],
-                              0 if c[3] == "" else int(c[3]),                                                        int(c[2]),
+                              0 if c[3] == "" else int(c[3]), 
+                              int(c[2]),
                               [] if c[4] == "" else c[4].split("|"),
                               [] if c[1] == "" else c[1].split("|"))
 
@@ -23,11 +24,29 @@ for c in coursedict:
     coursedict[c].setParents(parents)
 
 # Adding Courses to List for Iteration
-for i in coursedict:
-    courselist += [coursedict[i]]
+for c in coursedict:
+    courselist += [coursedict[c]]
+
+# Creating List of Categories
+categories = {}
+for c in courselist:
+    cat = c.getCategory()
+    for categ in cat:
+        if categ not in categories:
+            categories[categ] = [0,0] # [requested, required]
+
+# DEPRECATED
+# True Depth Calculation
+# for c in courselist: 
+#     c.getTrueDepth()
+
+# Updating With Graduation Requirements
+# TODO
 
 # Testing
 for i in coursedict:
-    print coursedict[i]
+    print repr(coursedict[i])
 for i in courselist:
+    print i
+for i in categories:
     print i
