@@ -42,7 +42,7 @@ class Course(object):
     def getParents(self):
         return self.prereqs[0]
     def getChildren(self):
-        return self.children
+        return self.children    
     def getCategory(self):
         return self.category
     # Deprecated 
@@ -62,7 +62,11 @@ class Course(object):
         return old
     def setParents(self,parents):
         self.prereqs[0] = parents
-
+    def removeChild(self,child):
+        self.children.remove(child)
+    def removeParent(self,parent):
+        self.prereqs[0].remove(parent)
+        
     # Propogating Up
     def propogate(self):
         def propogateMaybe(self):            

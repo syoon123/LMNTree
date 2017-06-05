@@ -35,7 +35,7 @@ for c in courselist:
         if categ not in categories:
             categories[categ] = [0,0] # [requested, required]
 
-# Already fulfilled by preselected mandatory classes            
+# Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
 del categories['FreshBio']
 del categories['FreshComp']
 del categories['SophChem']
@@ -48,7 +48,7 @@ del categories['Drafting']
 del categories['IntroCS1']
 del categories['Trig']
 
-# Populate category dictionary with number of credits needed for each
+# Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
 categories['USH'][1] = 2
 categories['BritLit'][1] = 1
@@ -64,6 +64,40 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
+
+# Function taking list of selected coursenames and modifying graph accordingly
+def updateGraph(coursenames):
+    pass
+
+# Function collecting selected/required courses into a list
+def selected():
+    ret = []
+    for course in courselist:
+        if course.getState() == 1:
+            ret.append(course)
+    return ret
+
+# Function traversing through graph: mark nodes by propogating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
+def traverse():
+    selectedCourses = selected()
+    for course in selectedCourses:
+        course.propogate()
+    for course in courselist:
+        for cat in course.getCategory():
+            categories[cat][0] += 1
+    for key, value in categories.items():
+        if value[0] < value[1]:
+            for course in courselist:
+                if course.getState() == 0 and key in course.getCategory():
+                    course.setState(1)
+    def removeNode(course):
+        for parent in course.getParents():
+            parent.removeChild(course)
+        for child in course.getChildren():
+            child.removeParent(course)
+        courselist.remove(course)
+        
+            
 
 # DEPRECATED
 # True Depth Calculation
