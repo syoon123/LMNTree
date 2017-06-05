@@ -16,11 +16,15 @@ class Course(object):
         self.name = name
         self.state = state
         self.category = category
-        self.children = []
+        self.children = [] # Unpopulated - Remove If Unneeded
         self.prereqs = [parents, numRequired]
-        self.depth = -1 # Uninitialized
+        self.truedepth = -1 # Uninitialized
+        self.reldepth = -1 # Updated Only For Traversals
 
     def __str__(self):
+        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()])
+
+    def __repr__(self):
         return "COURSE " + self.name
         
     # Mutators and Accessors
@@ -39,12 +43,18 @@ class Course(object):
         return self.prereqs[0]
     def getChildren(self):
         return self.children
-    def getDepth(self): # This will probably have to change
-        if (self.depth == -1):
-            if (len(getPrereqs()[0]) == 0):
-                self.depth = 0
-            self.depth = 1 + max([course.getDepth() for course in getPrereqs()[0]])
-        return self.depth
+    def getCategory(self):
+        return self.category
+    # Deprecated 
+    def getTrueDepth(self): # This will probably have to change
+        if (self.truedepth == -1):
+            if (len(self.getPrereqs()[0]) == 0):
+                self.truedepth = 0
+            else:
+                self.truedepth = 1 + max([0] + [course.getTrueDepth() for course in self.getPrereqs()[0]])
+        return self.truedepth
+    def getRelDepth(self):
+        return -1
 
     def setState(self,newState):
         old = getState()
