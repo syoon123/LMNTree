@@ -1,10 +1,10 @@
-B#import graph,
+#import graph,
 import csv
 from graph import Course
 
 # Data Parsing From CSV 
 # Name, Parents, NumReq, State, Categories, 
-raw = open("../static/sample.csv", "r").read().strip().replace("\r\n", "\n").split("\n")
+raw = open("../static/sample2.csv", "r").read().strip().replace("\r\n", "\n").split("\n")
 courselist = []
 coursedict = {}
 # Generating Dictionary of Courses
