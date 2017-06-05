@@ -17,6 +17,7 @@ for course in raw:
                               [] if c[1] == "" else c[1].split("|"))
     
 # Replacing Prereqs With Courses, Not Coursenames
+
 for c in coursedict:
     parents = coursedict[c].getParents()
     for i in range(len(parents)):
@@ -27,6 +28,13 @@ for c in coursedict:
 for c in coursedict:
     courselist += [coursedict[c]]
 
+# Adding Children to Nodes in courselist Based on Parents
+'''
+for c in courselist:
+    parents = c.getParents()
+    for p in parents:
+        p.addChild(c)
+'''        
 # Creating List of Categories
 categories = {}
 for c in courselist:
@@ -67,7 +75,14 @@ categories['Global'][1] = 4
 
 # Function taking list of selected coursenames and modifying graph accordingly
 def updateGraph(coursenames):
-    pass
+    selected = []
+    for course in courselist:
+        if course.getName() in coursenames:
+            selected.append(course)
+    for course in selected:
+        course.setState(1)
+        course.propogate()
+        
 
 # Function collecting selected/required courses into a list
 def selected():
@@ -85,19 +100,27 @@ def traverse():
     for course in courselist:
         for cat in course.getCategory():
             categories[cat][0] += 1
-    for key, value in categories.items():
+    unfulfilled = {}
+    for key, value in categories.items():        
         if value[0] < value[1]:
-            for course in courselist:
-                if course.getState() == 0 and key in course.getCategory():
-                    course.setState(1)
+            unfulfilled[key] = value
+    for key, value in unfulfilled.items():
+        for course in courselist:
+            if course.getState() == 0 and key in course.getCategory():
+                course.setState(2)
+                course.propogate() # classes marked as maybe if grad req isn't fulfilled         
     def removeNode(course):
         for parent in course.getParents():
             parent.removeChild(course)
         for child in course.getChildren():
             child.removeParent(course)
         courselist.remove(course)
-        
-            
+    for course in courselist:
+        if course.getState() == 0:
+            removeNode(course) # pruned
+    
+    
+    
 
 # DEPRECATED
 # True Depth Calculation
@@ -110,7 +133,9 @@ def traverse():
 # Testing
 for i in coursedict:
     print repr(coursedict[i])
+'''
 for i in courselist:
     print i
 for i in categories:
     print i
+'''

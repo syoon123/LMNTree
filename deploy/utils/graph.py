@@ -22,14 +22,14 @@ class Course(object):
         self.reldepth = -1 # Updated Only For Traversals
 
     def __str__(self):
-        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()])
+        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) #+ "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()])
 
     def __repr__(self):
         return "COURSE " + self.name
         
     # Mutators and Accessors
-    def getCode(self):
-        return self.code
+    def getName(self):
+        return self.name
     def getState(self):
         return self.state
     '''
@@ -66,7 +66,8 @@ class Course(object):
         self.children.remove(child)
     def removeParent(self,parent):
         self.prereqs[0].remove(parent)
-        
+    def addChild(self, child):
+        self.children += [child]
     # Propogating Up
     def propogate(self):
         def propogateMaybe(self):            
