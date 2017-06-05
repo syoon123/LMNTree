@@ -1,24 +1,23 @@
-Course Name,Parents,Prereqs,State,Categories
 Mother Node,,0,0,
 Freshman Biology 1,Mother Node,1,1,FreshBio
 Freshman Composition 1,Mother Node,1,1,FreshComp
-Algebra & Geometry 1,Mother Node,1,0,Geo|Math
+Algebra and Geometry 1,Mother Node,1,0,Geo|Math
 Geometry 1,Mother Node,1,0,Geo|Math
 Language 1,Mother Node,1,1,Language
-Art Appreciation 1,Mother Node,1,1,ArtApp
-Music Appreciation 1,Mother Node,1,1,MusicApp
+Art Appreciation,Mother Node,1,1,ArtApp
+Music Appreciation,Mother Node,1,1,MusicApp
 PE 1,Mother Node,1,1,PE
 Global History 1,Mother Node,1,0,Global
 AP Human Geography 1,Mother Node,1,0,Global
 Freshman Biology 2,Freshman Biology 1,1,0,FreshBio
-Freshman Composition 2,Freshman Compostion 1,1,0,FreshComp
-Alegbra & Geometry 2,Alegbra & Geometry 1,1,0,Geo|Math
+Freshman Composition 2,Freshman Composition 1,1,0,FreshComp
+Algebra and Geometry 2,Algebra and Geometry 1,1,0,Geo|Math
 Geometry 2,Geometry 1,1,0,Geo|Math
 PE 2,PE 1,1,0,PE
 Global History 2,Global History 1,1,0,Global
 Language 2,Language 1,1,0,Language
 AP Human Geography 2,AP Human Geography 1,1,0,Global
-Trigonometry 1,Alegbra & Geometry 2|Geometry 2,1,1,Trig|Math
+Trigonometry 1,Algebra and Geometry 2|Geometry 2,1,1,Trig|Math
 Trigonometry 2,Trigonometry 1,1,1,Trig|Math
 Advanced Algebra 1,Trigonometry 2,1,0,Math
 Advanced Algebra 2,Advanced Algebra 1,1,0,Math
@@ -36,19 +35,19 @@ Human Reasoning 1,Precalculus 2|Advanced Algebra 2,1,0,Math
 Human Reasoning 2,Human Reasoning 1,1,0,Math
 AP Statistics 1,Trigonometry 2,1,0,Math
 AP Statistics 2,AP Statistics 1,1,0,Math
-Mulivariable Mathematics 1,Calculus AB 2|Calculus BC 2|AP Calculus & Precalculus 2,1,0,Math
+Mulivariable Mathematics 1,Calculus AB 2|Calculus BC 2|AP Calculus and Precalculus 2,1,0,Math
 Mulivariable Mathematics 2,Mulivariable Mathematics 1,1,0,Math
-AP Calculus & Precalculus 1,Trigonometry 1,1,0,Math
-AP Calculus & Precalculus 2,AP Calculus & Precalculus 1,1,0,Math
+AP Calculus and Precalculus 1,Trigonometry 1,1,0,Math
+AP Calculus and Precalculus 2,AP Calculus and Precalculus 1,1,0,Math
 Mathematical Analysis of Sports,Trigonometry 2,1,0,Math
 Mathematics of Financial Markets,Trigonometry 2,1,0,Math
 Statistics ,Trigonometry 2,1,0,Math
 Math Research,Mother Node,1,0,
-Math Intel 1,Trigonmetry 2,1,0,
+Math Intel 1,Trigonometry 2,1,0,
 Math Intel 2,Math Intel 1,1,0,10tech
 Math Intel 3,Math Intel 2,1,0,10tech
 Actuarial Mathematics,Calculus BC 2|Mulivariable Mathematics 2,1,0,Math
-Introduction to Computer Science 1,Alegbra & Geometry 2|Geometry 2,1,1,IntroCS1
+Introduction to Computer Science 1,Algebra and Geometry 2|Geometry 2,1,1,IntroCS1
 Introduction to Computer Science 2,Introduction to Computer Science 1,1,0,5tech
 AP Computer Science 1,Introduction to Computer Science 2,1,0,10tech
 AP Computer Science 2,AP Computer Science 1,1,0,10tech
@@ -65,30 +64,30 @@ Introduction to Interior Design,Health,1,0,5tech
 Jewlery Design,Health,1,0,5tech
 Principles of Technology - Mechanisms,Health,1,0,5tech
 Robotics,Health,1,0,5tech
-Technical & Scientific Illustration,Health,1,0,5tech
+Technical and Scientific Illustration,Health,1,0,5tech
 Video Production,Health,1,0,5tech
-Advanced Video Production 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Advanced Video Production 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Advanced Video Production 2,Advanced Video Production 2,1,0,10tech
-Advanced Woodworking 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Advanced Woodworking 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Advanced Woodworking 2,Advanced Woodworking 1,1,0,10tech
-Architecture 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Architecture 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Architecture 2,Architecture 1,1,0,10tech
-Ceramics 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Ceramics 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Ceramics 2,Ceramics 1,1,0,10tech
-Photography 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Photography 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Photography 2,Photography 1,1,0,10tech
-Robotics Engineering 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Robotics Engineering 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Robotics Engineering 2,Robotics Engineering 1,1,0,10tech
 Technology Graphic Communications,Introduction to Computer Science 1|Introduction to Computer Science 2,1,1,Drafting
 Digital Video,Health,1,0,
-Acrylic Painting 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical & Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
+Acrylic Painting 1,Computer Technology|Digital Photography|Graphics Arts Communication|Introduction to Architecture|Introduction to Interior Design|Jewlery Design|Principles of Technology - Mechanisms|Robotics|Technical and Scientific Illustration|Video Production|Technology Graphic Communications,1,0,10tech
 Acrylic Painting 2,Acrylic Painting 1,1,0,10tech
 Computer Graphic Design,Health,1,0,
 Studio Art: Mixed Media,Health,1,0,
 Water Color,Health,1,0,
 Biological Lab Techniques,Freshman Biology 2,1,0,SciElective
 Vertebrate Zoology ,Freshman Biology 2,1,0,SciElective
-Anthropology & Sociobiology,Chemistry 2,1,0,SciElective
+Anthropology and Sociobiology,Chemistry 2,1,0,SciElective
 Forensic Science,Chemistry 2,1,0,SciElective
 Fundamentals of Nutritional Science,Freshman Biology 2,1,0,SciElective
 Genetics Research,Freshman Biology 2,1,0,SciElective
@@ -100,11 +99,11 @@ Medical Internship,Medical Ethics|Human Diseases| Medical Human Genetics,1,0,Sci
 Molecular Genetics,Freshman Biology 2,1,0,SciElective
 Molecular Science,Freshman Biology 2,1,0,SciElective
 Topics in Neurobiology,Freshman Biology 2,1,0,SciElective
-Geology ,Chemistry 2,1,0,SciElective
+Geology,Chemistry 2,1,0,SciElective
 Meteorology,Chemistry 2,1,0,SciElective
 Oceanography,Chemistry 2,1,0,SciElective
 Urban Ecology,Chemistry 2,1,0,SciElective
-AP Biology 1,Biological Lab Techniques|Vertebrate Zoology|Anthropology & Sociobiology|Forensic Science|Fundementals of Nutritional Science|Genetics Research|Human Diseases|Medical Human Genetics,2,0,SciElective
+AP Biology 1,Biological Lab Techniques|Vertebrate Zoology|Anthropology and Sociobiology|Forensic Science|Fundementals of Nutritional Science|Genetics Research|Human Diseases|Medical Human Genetics,2,0,SciElective
 AP Biology 2,AP Biology 1,1,0,SciElective
 Ap Enviromental Science 1,Geology|Meteorology|Oceanography|Urban Ecology,1,0,SciElective
 Ap Enviromental Science 2,Ap Enviromental Science 1,1,0,SciElective
@@ -139,36 +138,36 @@ Modern Physics 2,Modern Physics 1,1,0,SciElective
 Principles of Engineering,Physics 2,1,0,SciElective
 Physics Research 1,Physics 2,1,0,10tech
 Physics Research 2,Physics Research 1,1,0,10tech
-European Literature 1,Freshman Compostion 2,1,1,EuroLit
+European Literature 1,Freshman Composition 2,1,1,EuroLit
 European Literature 2,European Literature 1,1,1,EuroLit
-American Literature ,European Literature 2|Acting Workshop|Asian American Literature|Creative Nonfiction|Poetry Workshop|Writers Workshop,1,0,AmericanLit
+American Literature,European Literature 2|Acting Workshop|Asian American Literature|Creative Nonfiction|Poetry Workshop|Writers Workshop,1,0,AmericanLit
 AP Contemporaries and Claics 1,European Literature 2,1,0,AmericanLit|JuniorEnglish
 AP Contemporaries and Claics 2,AP Contemporaries and Claics 1,1,0,AmericanLit|JuniorEnglish
 AP American Voices 1,European Literature 2,1,0,AmericanLit|JuniorEnglish
 AP American Voices 2,AP American Voices 1,1,0,AmericanLit|JuniorEnglish
 AP Places and Perspectives 1,European Literature 2,1,0,AmericanLit|JuniorEnglish
 AP Places and Perspectives 2,AP Places and Perspectives 1,1,0,AmericanLit|JuniorEnglish
-Acting Workshop ,American Literature|European Literature 2|Asian American Literature|Creative Nonfiction|Poetry Workshop|Writers Workshop,1,0,JuniorEnglish
+Acting Workshop,American Literature|European Literature 2|Asian American Literature|Creative Nonfiction|Poetry Workshop|Writers Workshop,1,0,JuniorEnglish
 Asian American Literature,European Literature 2|Acting Workshop|American Literature|Creative Nonfiction|Poetry Workshop|Writers Workshop,1,0,JuniorEnglish
 Creative Nonfiction,European Literature 2|Acting Workshop|American Literature|American Literature|Poetry Workshop|Writers Workshop,1,0,JuniorEnglish
 Poetry Workshop,European Literature 2|Acting Workshop|American Literature|American Literature|American Literature|Writers Workshop,1,0,JuniorEnglish
 Writers Workshop,European Literature 2|Acting Workshop|American Literature|American Literature|Poetry Workshop|American Literature,1,0,JuniorEnglish
 DNE,Acting Workshop|American Literature|American Literature|Poetry Workshop|American Literature|Writers Workshop|AP Contemporaries and Claics 1| AP Contemporaries and Claics 2| AP American Voices 1|AP American Voices 2|AP Places and Perspectives 1|AP Places and Perspectives 2,2,3,
-British Literature 1,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2,1,0,BritLit
-British Literature 2,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 1,1,0,BritLit
+British Literature 1,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2,1,0,BritLit
+British Literature 2,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 1,1,0,BritLit
 AP Great Books 1,DNE,1,0,BritLit|SeniorEnglish
 AP Great Books 2,AP Great Books 1,1,0,BritLit|SeniorEnglish
 AP Society and Self 1,DNE,1,0,BritLit|SeniorEnglish
 AP Society and Self 2,AP Society and Self 1,1,0,BritLit|SeniorEnglish
 AP Psycology and Literature 1,DNE,1,0,BritLit|SeniorEnglish
 AP Psycology and Literature 2,AP Psycology and Literature 1,1,0,BritLit|SeniorEnglish
-Acting Workshop (senior year),DNE|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
-Creative Nonfiction (senior year),DNE|Acting Workshop (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
-Existentialism,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
-Poetry Workshop (senior year),DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
-Science Fiction,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
-Shakesperean Literature,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Women's Voices|British Literature 2|British Literature 1,1,0,BritLit|SeniorEnglish
-Women's Voices ,DNE|Acting Workshop (senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Acting Workshop(senior year),DNE|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Creative Nonfiction (senior year),DNE|Acting Workshop(senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Existentialism,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Poetry Workshop (senior year),DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Science Fiction|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Science Fiction,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Shakesperean Literature|Women's Voices|British Literature 2|British Literature 1,1,0,SeniorEnglish
+Shakesperean Literature,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Women's Voices|British Literature 2|British Literature 1,1,0,BritLit|SeniorEnglish
+Women's Voices ,DNE|Acting Workshop(senior year)|Creative Nonfiction (senior year)|Existentialism|Poetry Workshop (senior year)|Science Fiction|Shakesperean Literature|British Literature 2|British Literature 1,1,0,SeniorEnglish
 PE 3,PE 2,1,0,PE
 PE 4,PE 3,1,0,PE
 Basketball,PE 4|In-Line Skating|Lifeguarding|Polar Bear|Step Aerobics|Swimming|Volleyball|Weight Training,1,0,PE
@@ -196,7 +195,7 @@ US History 1,Global 4|AP World 2|AP Euro 2,1,0,USH
 US History 2,US History 1,1,0,USH
 AP US History 1,Global 4|AP World 2|AP Euro 2,1,0,USH
 AP US History 2,AP US History 1,1,0,USH
-American Government ,AP US History 2|US History 2,1,0,Gov
+American Government,AP US History 2|US History 2,1,0,Gov
 AP American Government,AP US History 2|US History 3,1,0,Gov
 AP Comparative Government,American Government|AP American Government,1,0,Gov
 AP Macroeconomics,AP US History 2|US History 2,1,0,Econ
