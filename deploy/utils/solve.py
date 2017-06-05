@@ -132,7 +132,7 @@ def traverse():
 
 # Testing
 for i in coursedict:
-    print repr(coursedict[i])
+    print str(coursedict[i])
 '''
 for i in courselist:
     print i

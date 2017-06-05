@@ -12,7 +12,7 @@ class Course(object):
     # int numRequired    :
     # int depth          :
     # ============================================
-    def __init__(self, name, state, numRequired, category=[], parents=[]):
+    def __init__(self, name, state, numRequired, category=[], parents=[]): # Not sure if numRequired is actually necessary
         self.name = name
         self.state = state
         self.category = category
