@@ -10,7 +10,6 @@ state = 'New York'
 year = '1977'
 
 course_selector_courses = course_selector.convert_csv_to_dict()
-print course_selector_courses
 @app.route("/d3test", methods = ['GET', 'POST'])
 # displays the data visualization
 def home():
@@ -29,7 +28,14 @@ def class_selector():
     phys_courses = course_selector_courses["Physics"]
     social_courses = course_selector_courses["Social Studies"]
     tech_courses = course_selector_courses["Technology"]
-    return render_template('class_selector.html')
+    return render_template('class_selector.html', art_courses = art_courses, bio_courses = bio_courses, chem_courses= chem_courses, cs_courses = cs_courses, eng_courses = eng_courses, health_courses = health_courses, math_courses = math_courses, music_courses = music_courses, phys_courses = phys_courses, social_courses = social_courses, tech_courses = tech_courses)
+
+@app.route("/class_selector_check", methods = ["POST"])
+def class_selector_check():
+    res = request.json
+    classes = res["classes"]
+    print classes
+    return "success"
 
 if __name__ == "__main__":
     app.debug = True
