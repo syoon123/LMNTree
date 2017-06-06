@@ -40,21 +40,29 @@ def selected():
             ret.append(course)
     return ret
 
+def maybes():
+    ret = []
+    for course in courselist:
+        if course.getState() == 2:
+            ret.append(course)
+    return ret
+
 # Function traversing through graph: mark nodes by propogating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
 def traverse():
     selectedCourses = selected()
     for course in selectedCourses:
         course.propogate()
-    for course in courselist:
+    selectedCourses = selected()
+    for course in selectedCourses:
         for cat in course.getCategory():
             categories[cat][0] += 1
     unfulfilled = {}
     for key, value in categories.items():        
         if value[0] < value[1]:
             unfulfilled[key] = value
-    for key, value in unfulfilled.items():
+    for category in unfulfilled:
         for course in courselist:
-            if course.getState() == 0 and key in course.getCategory():
+            if course.getState() == 0 and category in course.getCategory():
                 course.setState(2)
                 course.propogate() # classes marked as maybe if grad req isn't fulfilled         
     def removeNode(course):
@@ -66,6 +74,18 @@ def traverse():
     for course in courselist:
         if course.getState() == 0:
             removeNode(course) # pruned
+    maybes = maybes()
+    for key, value in unfulfilled:
+        numNeeded = value[1] - value[0]
+        toAJAX = []
+        lowestCurrentRelDepth = 0
+        while len(toAJAX) < numNeeded:
+            lowestCurrentRelDepth += 1
+            for course in maybes:
+                if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
+                    toAJAX.append(course)
+    # THIS IS WHERE WE SEND BRIAN THE COURSES THE USER NEEDS TO CHOOSE FROM FOR THE AJAX STUFF
+    # I REALLY DON'T KNOW HOW TO DO THIS PART :( 
 
 # ============================================
 # Data Parsing From CSV 
