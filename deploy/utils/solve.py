@@ -88,7 +88,17 @@ def traverse():
                     if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
                         choices.append(course.getName())
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
+    else:
+        # Build Tree
+                                
     return toAJAX                        
+
+# ============================================
+# Writing to Tree CSV
+# ============================================
+# Course, Prereq
+tree = open("../static/tree.csv", "w")
+
 
 # ============================================
 # Data Parsing From CSV 
