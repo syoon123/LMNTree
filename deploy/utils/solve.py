@@ -84,7 +84,7 @@ def traverse():
             lowestCurrentRelDepth += 1
             for course in maybes:
                 if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
-                    choices.append(course)
+                    choices.append(course.getName())
         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.',
                        'choices':choices}
     # THIS IS WHERE WE SEND BRIAN THE COURSES THE USER NEEDS TO CHOOSE FROM FOR THE AJAX STUFF
