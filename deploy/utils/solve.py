@@ -75,15 +75,17 @@ def traverse():
         if course.getState() == 0:
             removeNode(course) # pruned
     maybes = maybes()
+    toAJAX = {}
     for key, value in unfulfilled:
         numNeeded = value[1] - value[0]
-        toAJAX = []
+        choices = []
         lowestCurrentRelDepth = 0
-        while len(toAJAX) < numNeeded:
+        while len(choices) < numNeeded:
             lowestCurrentRelDepth += 1
             for course in maybes:
                 if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
-                    toAJAX.append(course)
+                    choices.append(course)
+        toAJAX[key] = choices
     # THIS IS WHERE WE SEND BRIAN THE COURSES THE USER NEEDS TO CHOOSE FROM FOR THE AJAX STUFF
     # I REALLY DON'T KNOW HOW TO DO THIS PART :( 
 
