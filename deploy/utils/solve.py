@@ -90,7 +90,7 @@ def traverse():
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
     else:
         # Build Tree
-                                
+        generateTree(courselist, tree)
     return toAJAX                        
 
 # ============================================
@@ -98,7 +98,11 @@ def traverse():
 # ============================================
 # Course, Prereq
 tree = open("../static/tree.csv", "w")
-
+def generateTree(graph, treefile):
+    for node in graph:
+        line = node.getName() + "," + node.getParents()[0].getName() + "\n"
+        treefile.write(line)
+    treefile.close()
 
 # ============================================
 # Data Parsing From CSV 
