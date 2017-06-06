@@ -30,9 +30,9 @@ var svg = d3.select("body").append("svg")
 
 root = treeData;
   
-update(root);
+update(root,1);
 
-function update(source) {
+function update(source,depth) {
 
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
@@ -50,19 +50,20 @@ function update(source) {
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
     //untested
-      .on('click', function(d){console.log(d);})//d3.select(d).attr('selected', d3.select(d).attr('selected')?false:true) } ) 
+      .on('click', function(d){d.selected = d.selected?false:true; console.log(d); } ) 
    .attr("transform", function(d) { 
-    return "translate(" + d.y + "," + d.x + ")"; });
+       return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeEnter.append("rect")
 	.attr("width", 35)
 	.attr("height", 20).attr("y",-10)
+	.attr("display",function(d){console.log(d.depth); d.depth <= depth?'none':'unset'})
 	.style("fill", "#fff").style("stroke-width","1")
-	.style("stroke","rgb(0,0,0)")
+	.style("stroke","rgb(0,0,0)");
     //untested
-	.on('click', function(d){
-	    d3.select(d).style("fill", "green")}
-	   );
+	//.on('click', function(d){
+	  //  d3.select(d).style("fill", "green")}
+	   //);
 
   nodeEnter.append("text")
    .attr("x", function(d) { 
