@@ -31,34 +31,36 @@ var svg = d3.select("body").append("svg")
 root = treeData;
   
 update(root,1);
-
 function update(source,depth) {
-
+    
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
    links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+    nodes.forEach(function(d) { d.y = d.depth * 180; });
+    //nodes.forEach(function(d){console.log(d.depth <= depth); if(d.depth <= depth){console.log("depth is good"); d._children = false}else{d._children = d.children; d.children = null;};});
 
   // Declare the nodesâ€¦
     var node = svg.selectAll("g.node")
-	.attr('selected',false)
 	.data(nodes, function(d) { return d.id || (d.id = ++i); });
-
-  // Enter the nodes.
+    var updatecolor = function(){
+	d3.selectAll('rect').transition().duration(300).style("fill",function(d){return d.selected?"green":"#fff";});
+    };
+	    // Enter the nodes.
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
     //untested
-      .on('click', function(d){d.selected = d.selected?false:true; console.log(d); } ) 
-   .attr("transform", function(d) { 
-       return "translate(" + d.y + "," + d.x + ")"; });
+      .on('click', function(d){d.selected = d.selected?false:true; updatecolor() } ) 
+      .attr("transform", function(d) { 
+	  return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeEnter.append("rect")
 	.attr("width", 35)
 	.attr("height", 20).attr("y",-10)
 	.attr("display",function(d){console.log(d.depth); d.depth <= depth?'none':'unset'})
-	.style("fill", "#fff").style("stroke-width","1")
+	.style("fill",function(d){return d.selected?"green":"#fff";})
+	.style("stroke-width","1")
 	.style("stroke","rgb(0,0,0)");
     //untested
 	//.on('click', function(d){
