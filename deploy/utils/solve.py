@@ -60,11 +60,12 @@ def traverse():
     for key, value in categories.items():        
         if value[0] < value[1]:
             unfulfilled[key] = value
-    for category in unfulfilled:
-        for course in courselist:
-            if course.getState() == 0 and category in course.getCategory():
-                course.setState(2)
-                course.propogate() # classes marked as maybe if grad req isn't fulfilled         
+    if len(unfulfilled) > 0:
+        for category in unfulfilled:
+            for course in courselist:
+                if course.getState() == 0 and category in course.getCategory():
+                    course.setState(2)
+                    course.propogate() # classes marked as maybe if grad req isn't fulfilled
     def removeNode(course):
         for parent in course.getParents():
             parent.removeChild(course)
@@ -76,19 +77,18 @@ def traverse():
             removeNode(course) # pruned
     maybes = maybes()
     toAJAX = {}
-    for key, value in unfulfilled:
-        numNeeded = value[1] - value[0]
-        choices = []
-        lowestCurrentRelDepth = 0
-        while len(choices) < numNeeded:
-            lowestCurrentRelDepth += 1
-            for course in maybes:
-                if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
-                    choices.append(course.getName())
-        toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.',
-                       'choices':choices}
-    # THIS IS WHERE WE SEND BRIAN THE COURSES THE USER NEEDS TO CHOOSE FROM FOR THE AJAX STUFF
-    # I REALLY DON'T KNOW HOW TO DO THIS PART :( 
+    if len(unfulfilled) > 0:
+        for key, value in unfulfilled:
+            numNeeded = value[1] - value[0]
+            choices = []
+            lowestCurrentRelDepth = 0
+            while len(choices) < numNeeded:
+                lowestCurrentRelDepth += 1
+                for course in maybes:
+                    if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
+                        choices.append(course.getName())
+                        toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
+    return toAJAX                        
 
 # ============================================
 # Data Parsing From CSV 
