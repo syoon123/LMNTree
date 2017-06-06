@@ -7,8 +7,8 @@ class Course(object):
     # String   name      :
     # int      state     :
     # String[] category  :    
-    # String[] parents   :
-    # String[] children  :
+    # Course[] parents   :
+    # Course[] children  :
     # int numRequired    :
     # int depth          :
     # ============================================
@@ -22,7 +22,7 @@ class Course(object):
         self.reldepth = -1 # Updated Only For Traversals
 
     def __str__(self):
-        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) #+ "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()])
+        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) + "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()]) + "\nTrue Depth: " + str(self.truedepth) + "\n"
 
     def __repr__(self):
         return "COURSE " + self.name
@@ -45,16 +45,12 @@ class Course(object):
         return self.children    
     def getCategory(self):
         return self.category
-    # Deprecated 
-    def getTrueDepth(self): # This will probably have to change
-        if (self.truedepth == -1):
-            if (len(self.getPrereqs()[0]) == 0):
-                self.truedepth = 0
-            else:
-                self.truedepth = 1 + max([0] + [course.getTrueDepth() for course in self.getPrereqs()[0]])
+    def getTrueDepth(self):
         return self.truedepth
     def getRelDepth(self):
         return -1
+    def getState(self):
+        return self.state
 
     def setState(self,newState):
         old = getState()
@@ -62,6 +58,11 @@ class Course(object):
         return old
     def setParents(self,parents):
         self.prereqs[0] = parents
+    def setTrueDepth(self,depth):
+        self.truedepth = depth;
+    def setRelDepth(self,depth):
+        self.reldepth = depth;
+
     def removeChild(self,child):
         self.children.remove(child)
     def removeParent(self,parent):
