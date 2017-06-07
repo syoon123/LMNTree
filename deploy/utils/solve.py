@@ -77,9 +77,8 @@ def traverse():
             removeNode(course) # pruned
     maybeCourses = maybes()
     toAJAX = {}
-    '''
     if len(unfulfilled) > 0:
-        for key, value in unfulfilled:
+        for key, value in unfulfilled.items():
             numNeeded = value[1] - value[0]
             choices = []
             lowestCurrentRelDepth = 0
@@ -89,10 +88,8 @@ def traverse():
                     if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
                         choices.append(course.getName())
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
-    '''
-    print unfulfilled
-    #else:
-     #   generateTree(courselist) # Build Tree
+    else:
+        generateTree(courselist) # Build Tree
     return toAJAX                        
 
 # ============================================
