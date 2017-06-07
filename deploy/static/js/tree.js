@@ -15,7 +15,7 @@ var margin = {top: 20, right: 120, bottom: 20, left: 120},
  height = 1080 - margin.top - margin.bottom;
  
 var i = 0;
-
+var currdepth = 1;
 var tree = d3.layout.tree()
  .size([height, width]);
 
@@ -32,7 +32,7 @@ root = treeData;
   
 update(root,1);
 function update(source,depth) {
-    
+    //svg.selectAll("g.button").enter().append("g").attr('class','butt').append('rect').
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
    links = tree.links(nodes);
@@ -50,7 +50,6 @@ function update(source,depth) {
 	    // Enter the nodes.
   var nodeEnter = node.enter().append("g")
       .attr("class", "node")
-    //untested
       .on('click', function(d){d.selected = d.selected?false:true; updatecolor() } ) 
       .attr("transform", function(d) { 
 	  return "translate(" + d.y + "," + d.x + ")"; });
