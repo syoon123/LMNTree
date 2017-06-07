@@ -9,15 +9,19 @@ from graph import Course
 def updateRelDepths(courselist):
     checked = []
     tocheck = [i for i in courselist if i.getState() == 1] # Seeded With Required Nodes
+    # print "seed", tocheck # Debugging
     nextdepth = 0
+    for c in tocheck:
+        c.setRelDepth(nextdepth) # 0
     while len(tocheck) > 0: 
         tmp = len(tocheck) # Temporary Variable, Easy Degeneration of tocheck
-        checked += [tocheck]
         for c in tocheck[:tmp]:
+            checked += [c]
             for child in c.getChildren():
-                if child not in tocheck and child.getState() != -1: # Not Required
+                if child not in tocheck and child.getState() != 1: # Not Required
                     tocheck += [child] # Add Children to List To Be Checked
             c.setRelDepth(nextdepth)
+            # print repr(c), "depth set to", c.getRelDepth() # Debugging
         tocheck = tocheck[tmp:]
         nextdepth += 1
     
@@ -30,7 +34,7 @@ def updateGraph(coursenames):
             selected.append(course)
     for course in selected:
         course.setState(1)
-        course.propogateRequested()
+        course.propagateRequested()
 
 # Function collecting selected/required courses into a list
 def selected():
@@ -47,40 +51,93 @@ def maybes():
             ret.append(course)
     return ret
 
-# Function traversing through graph: mark nodes by propogating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
+# Function to prune all nodes of a category not marked required
+def prune(category):
+    for course in courselist:
+        if category in course.getCategory() and course.getState() == 0: # Maybe Error Here?
+            print "pruned", repr(course)
+            course.setState(3) # Pruned State
+def pruneMaybes(category):
+    for course in courselist:
+        if category in course.getCategory() and course.getState() == 2: # Maybe
+            print "pruned maybe", repr(course)
+            course.setState(3) # Pruned State
+
+# Function traversing through graph: mark nodes by propagating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
 def traverse():
     # Propagate Upwards For Requested
     selectedCourses = selected() # Requested Courses - State == 1
     for course in selectedCourses:
-        print repr(course), "propogating"
-        course.propogateRequested() # Propogate Upwards
-    for course in selectedCourses: # Adding Requirements
-        for cat in course.getCategory():
-            categories[cat][0] += 1
+        print repr(course), "propagating"
+        course.propagateRequested() # Propagate Upwards
+    for course in courselist: # Updating Requirements
+        if course.getState() == 1:
+            for cat in course.getCategory():
+                categories[cat][0] += 1
 
     # Debugging
     for course in selected():
         print "required: " + repr(course)
 
-    # Propogate Upwards For Maybes
+    # Propagate Upwards For Maybes
     maybeCourses = maybes()
     for course in maybeCourses:
-        print repr(course), "propogating maybes"
-        course.propogateMaybe() # Propogate Upwards - Maybes
+        print repr(course), "propagating maybes"
+        course.propagateMaybe() # Propagate Upwards - Maybes
+    for course in courselist: # Updating Requirements
+        if course.getState() == 2:
+            for cat in course.getCategory():
+                categories[cat][0] += 1
 
-    # Add Category Checking Here - TODO
+    # Category Checking
+    unfulfilled = []
+    fulfilled = []
+    for key, value in categories.items():
+        if value[0] < value[1]: # Requested < Required
+            unfulfilled += [key]
+        else:
+            fulfilled += [key]
 
-    unfulfilled = {}
-    for key, value in categories.items():        
-        if value[0] < value[1]:
-            unfulfilled[key] = value
-    if len(unfulfilled) > 0:
-        for category in unfulfilled:
-            for course in courselist:
-                if course.getState() == 0 and category in course.getCategory():
-                    course.setState(2)
-                    course.propogateRequested() # classes marked as maybe if grad req isn't fulfilled
-    def removeNode(course):
+    print "Unfulfilled:", unfulfilled # Debugging Categories
+    print "Fulfilled:", fulfilled # Debugging Categories
+
+    for category in fulfilled:
+        prune(category) # Pruning Unmarked Ones
+
+    # Using Relative Depth To Add Courses
+    toAJAX = {}
+    for category in unfulfilled:
+        check = []
+        while (categories[category][0] < categories[category][1]): # Requested < Required
+            # print categories[category][0] # Debugging
+            updateRelDepths(courselist) # Update Relative Depths
+            for c in courselist:
+                if category in c.getCategory() and c.getRelDepth() == 1 and c.getState() % 2 != 1: # First Layer, Not 1 (Required) or 3 (Pruned)
+                    check += [c]
+                    if c.getState() != 2:
+                        categories[category][0] += 1
+                        c.setState(2) # Make Unmarked Maybe
+                    if categories[category][0] < categories[category][1]: # Still Less Than Req'd
+                        c.setState(1) # Make First Layer All Required
+                        check = []
+                        continue
+            # print category, "layer", check # Debugging
+            if len(check) == 1: # Only One Choice
+                check[0].setState(1) # Require The Class
+            elif len(check) > 1: # User Will Have To Make A Choice
+                toAJAX[category] = check
+            check = [] # The Final Result Will Be The Last Layer
+            
+    print toAJAX
+            
+    '''
+    for course in courselist:
+            while (categories[
+            if course.getState() == 0 and category in course.getCategory():
+                course.setState(2)
+                course.propagateRequested() # classes marked as maybe if grad req isn't fulfilled
+
+                    def removeNode(course):
         for parent in course.getParents():
             parent.removeChild(course)
         for child in course.getChildren():
@@ -106,9 +163,10 @@ def traverse():
                     break
 
                 break
-    else:
-        generateTree(courselist) # Build Tree
-    return toAJAX                        
+    #else:
+        #generateTree(courselist) # Build Tree
+    '''
+    return "done" #toAJAX                        
 
 # ============================================
 # Writing to Tree CSV
@@ -167,8 +225,8 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 5
-categories['Right'][1] = 3
+categories['Left'][1] = 8 #6 #5
+categories['Right'][1] = 8
 
 '''
 # Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
@@ -233,7 +291,7 @@ for i in coursedict:
 traverse()
 
 # Rel Depth Updating - Untested
-updateRelDepths(courselist)
+# updateRelDepths(courselist)
 
 # Testing
 #for i in coursedict:

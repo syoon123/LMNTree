@@ -36,6 +36,7 @@ class Course(object):
     0: unmarked
     1: required/selected
     2: maybe
+    3: pruned
     '''
     def getPrereqs(self):
         return self.prereqs
@@ -50,7 +51,7 @@ class Course(object):
     def getTrueDepth(self):
         return self.truedepth
     def getRelDepth(self):
-        return -1
+        return self.reldepth
     def getState(self):
         return self.state
 
@@ -72,15 +73,15 @@ class Course(object):
     def addChild(self, child):
         self.children += [child]
     # Propogating Up
-    '''def propogate(self):
+    '''def propagate(self):
         if self.getTrueDepth() == 0:
             return
         elif self.getTrueDepth() == 1:
             for parent in self.getParents():
                 if parent.getState() != 1:
-                    parent.propogate()'''
+                    parent.propagate()'''
 
-    def propogateRequested(self):
+    def propagateRequested(self):
         if self.getTrueDepth() == 0: # Root Nodes
             return # Do Nothing
         parents = self.getParents()
@@ -88,7 +89,7 @@ class Course(object):
             for parent in parents:
                 if parent.getState() != 1:
                     parent.setState(1) # Required
-                    parent.propogateRequested()
+                    parent.propagateRequested()
                 else:
                     parent.setState(1) # Required
         else:
@@ -96,13 +97,13 @@ class Course(object):
                 if parent.getState() == 0:
                     parent.setState(2) # Maybe
 
-    def propogateMaybe(self):            
+    def propagateMaybe(self):            
         if self.getState() == 2: # Maybe Nodes
             parents = self.getParents()
             for parent in parents:
                 if parent.getState() == 0:
                     parent.setState(2) # Maybe
-                    parent.propogateMaybe()
+                    parent.propagateMaybe()
 
 
 
