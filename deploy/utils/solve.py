@@ -30,7 +30,7 @@ def updateGraph(coursenames):
             selected.append(course)
     for course in selected:
         course.setState(1)
-        course.propogate()
+        course.propogateRequested()
 
 # Function collecting selected/required courses into a list
 def selected():
@@ -49,13 +49,27 @@ def maybes():
 
 # Function traversing through graph: mark nodes by propogating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
 def traverse():
-    selectedCourses = selected()
+    # Propagate Upwards For Requested
+    selectedCourses = selected() # Requested Courses - State == 1
     for course in selectedCourses:
-        course.propogate()
-    selectedCourses = selected()
-    for course in selectedCourses:
+        print repr(course), "propogating"
+        course.propogateRequested() # Propogate Upwards
+    for course in selectedCourses: # Adding Requirements
         for cat in course.getCategory():
             categories[cat][0] += 1
+
+    # Debugging
+    for course in selected():
+        print "required: " + repr(course)
+
+    # Propogate Upwards For Maybes
+    maybeCourses = maybes()
+    for course in maybeCourses:
+        print repr(course), "propogating maybes"
+        course.propogateMaybe() # Propogate Upwards - Maybes
+
+    # Add Category Checking Here - TODO
+
     unfulfilled = {}
     for key, value in categories.items():        
         if value[0] < value[1]:
@@ -65,7 +79,7 @@ def traverse():
             for course in courselist:
                 if course.getState() == 0 and category in course.getCategory():
                     course.setState(2)
-                    course.propogate() # classes marked as maybe if grad req isn't fulfilled
+                    course.propogateRequested() # classes marked as maybe if grad req isn't fulfilled
     def removeNode(course):
         for parent in course.getParents():
             parent.removeChild(course)
@@ -85,9 +99,13 @@ def traverse():
             while len(choices) < numNeeded:
                 lowestCurrentRelDepth += 1
                 for course in maybeCourses:
+                    # print course
                     if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
                         choices.append(course.getName())
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
+                    break
+
+                break
     else:
         generateTree(courselist) # Build Tree
     return toAJAX                        
@@ -206,10 +224,12 @@ for i in reqs:
     coursedict[i].setState(1)
 
 # Debugging - Look at Required Courses
+'''
 for i in coursedict:
     if coursedict[i].getState() == 1:
         print i
-
+'''
+# Traverse and Update
 traverse()
 
 # Rel Depth Updating - Untested

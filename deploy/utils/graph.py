@@ -22,7 +22,7 @@ class Course(object):
         self.reldepth = 0 # Updated Only For Traversals
 
     def __str__(self):
-        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) + "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()]) + "\nCategories: " + ", ".join([cat for cat in self.category]) + "\nTrue Depth: " + str(self.truedepth) + "\nRel Depth: " + str(self.reldepth) + "\n"
+        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) + "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()]) + "\nCategories: " + ", ".join([cat for cat in self.category]) + "\nTrue Depth: " + str(self.truedepth) + "\nRel Depth: " + str(self.reldepth) + "\nPrereqs Required: " + str(self.prereqs[1]) + "\n"
 
     def __repr__(self):
         return "COURSE " + self.name
@@ -41,6 +41,8 @@ class Course(object):
         return self.prereqs
     def getParents(self):
         return self.prereqs[0]
+    def getNumRequired(self):
+        return self.prereqs[1]
     def getChildren(self):
         return self.children    
     def getCategory(self):
@@ -78,28 +80,29 @@ class Course(object):
                 if parent.getState() != 1:
                     parent.propogate()'''
 
-    def propogate(self):
-        if self.getTrueDepth() == 0:
-            return
-        if self.getState() == 1: 
-            if len(self.getPrereqs()[0]) == 1:
-                self.getPrereqs()[0][0].setState(1)
-                self.getPrereqs()[0][0].propogate()
-            else:
-                self.propogateMaybe()
-        elif self.getState() == 2:
-            self.propogateMaybe()
+    def propogateRequested(self):
+        if self.getTrueDepth() == 0: # Root Nodes
+            return # Do Nothing
+        parents = self.getParents()
+        if len(parents) == self.getNumRequired(): # Number of Parents Available is Number of Prereqs Needed
+            for parent in parents:
+                if parent.getState() != 1:
+                    parent.setState(1) # Required
+                    parent.propogateRequested()
+                else:
+                    parent.setState(1) # Required
+        else:
+            for parent in parents:
+                if parent.getState() == 0:
+                    parent.setState(2) # Maybe
+
     def propogateMaybe(self):            
-        count = 0
-        for parent in self.getPrereqs()[0]:
-            if parent.getState() == 1:
-                parent.propogate()
-                count += 1
-        if count == 0:
-            for parent in self.getPrereqs()[0]:
-                parent.setState(2)
-                parent.propogate()
-            
+        if self.getState() == 2: # Maybe Nodes
+            parents = self.getParents()
+            for parent in parents:
+                if parent.getState() == 0:
+                    parent.setState(2) # Maybe
+                    parent.propogateMaybe()
 
 
 
