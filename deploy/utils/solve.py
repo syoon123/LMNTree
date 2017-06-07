@@ -89,16 +89,15 @@ def traverse():
                         choices.append(course.getName())
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
     else:
-        # Build Tree
-        generateTree(courselist, tree)
+        generateTree(courselist) # Build Tree
     return toAJAX                        
 
 # ============================================
 # Writing to Tree CSV
 # ============================================
 # Course, Prereq
-tree = open("../static/tree.csv", "w")
-def generateTree(graph, treefile):
+def generateTree(graph):
+    tree = open("../static/tree.csv", "w")
     for node in graph:
         line = node.getName() + "," + node.getParents()[0].getName() + "\n"
         treefile.write(line)
@@ -108,7 +107,8 @@ def generateTree(graph, treefile):
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-raw = open("../static/courses.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+raw = open("../static/test.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+#raw = open("../static/courses.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 # Generating Dictionary of Courses
@@ -148,6 +148,11 @@ for c in courselist:
         if categ not in categories:
             categories[categ] = [0,0] # [requested, required]
 
+# Debugging Categories
+categories['Left'][1] = 5
+categories['Right'][1] = 3
+
+'''
 # Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
 del categories['FreshBio']
 del categories['FreshComp']
@@ -177,6 +182,7 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
+'''
 
 # True Depth Calculation
 checked = []
@@ -193,16 +199,22 @@ while len(tocheck) > 0:
     tocheck = tocheck[tmp:]
     nextdepth += 1
 
+# Updating Required Classes
+# TO CHANGE 
+reqs = open("../static/reqs.csv", "r").read().strip().replace("\r\n", "\n").split("\n")
+for i in reqs:
+    coursedict[i].setState(1)
+
+# Debugging - Look at Required Courses
+for i in coursedict:
+    if coursedict[i].getState() == 1:
+        print i
+
+traverse()
+
 # Rel Depth Updating - Untested
 updateRelDepths(courselist)
 
 # Testing
-for i in coursedict:
-    print str(coursedict[i])
-'''
-for i in courselist:
-    print repr(i)
-for i in categories:
-    print i
-'''
-
+#for i in coursedict:
+#    print str(coursedict[i])

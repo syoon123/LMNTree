@@ -18,11 +18,11 @@ class Course(object):
         self.category = category
         self.children = [] # Unpopulated - Remove If Unneeded
         self.prereqs = [parents, numRequired]
-        self.truedepth = -1 # Uninitialized
-        self.reldepth = -1 # Updated Only For Traversals
+        self.truedepth = 0 # Uninitialized
+        self.reldepth = 0 # Updated Only For Traversals
 
     def __str__(self):
-        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) + "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()]) + "\nTrue Depth: " + str(self.truedepth) + "\n"
+        return "Name: " + self.name + "\nParents: " + ", ".join([repr(i) for i in self.getParents()]) + "\nChildren: " + ", ".join([repr(i) for i in self.getChildren()]) + "\nCategories: " + ", ".join([cat for cat in self.category]) + "\nTrue Depth: " + str(self.truedepth) + "\nRel Depth: " + str(self.reldepth) + "\n"
 
     def __repr__(self):
         return "COURSE " + self.name
@@ -53,7 +53,7 @@ class Course(object):
         return self.state
 
     def setState(self,newState):
-        old = getState()
+        old = self.getState()
         self.state = newState
         return old
     def setParents(self,parents):
@@ -70,18 +70,16 @@ class Course(object):
     def addChild(self, child):
         self.children += [child]
     # Propogating Up
+    '''def propogate(self):
+        if self.getTrueDepth() == 0:
+            return
+        elif self.getTrueDepth() == 1:
+            for parent in self.getParents():
+                if parent.getState() != 1:
+                    parent.propogate()'''
+
     def propogate(self):
-        def propogateMaybe(self):            
-            count = 0
-            for parent in self.getPrereqs()[0]:
-                if parent.getState() == 1:
-                    parent.propogate()
-                    count += 1
-            if count == 0:
-                for parent in self.getPrereqs()[0]:
-                    parent.setState(2)
-                    parent.propogate()
-        if self.getDepth() == 0:
+        if self.getTrueDepth() == 0:
             return
         if self.getState() == 1: 
             if len(self.getPrereqs()[0]) == 1:
@@ -91,6 +89,16 @@ class Course(object):
                 self.propogateMaybe()
         elif self.getState() == 2:
             self.propogateMaybe()
+    def propogateMaybe(self):            
+        count = 0
+        for parent in self.getPrereqs()[0]:
+            if parent.getState() == 1:
+                parent.propogate()
+                count += 1
+        if count == 0:
+            for parent in self.getPrereqs()[0]:
+                parent.setState(2)
+                parent.propogate()
             
 
 
