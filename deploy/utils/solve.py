@@ -75,8 +75,9 @@ def traverse():
     for course in courselist:
         if course.getState() == 0:
             removeNode(course) # pruned
-    maybes = maybes()
+    maybeCourses = maybes()
     toAJAX = {}
+    '''
     if len(unfulfilled) > 0:
         for key, value in unfulfilled:
             numNeeded = value[1] - value[0]
@@ -84,12 +85,14 @@ def traverse():
             lowestCurrentRelDepth = 0
             while len(choices) < numNeeded:
                 lowestCurrentRelDepth += 1
-                for course in maybes:
+                for course in maybeCourses:
                     if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
                         choices.append(course.getName())
                         toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
-    else:
-        generateTree(courselist) # Build Tree
+    '''
+    print unfulfilled
+    #else:
+     #   generateTree(courselist) # Build Tree
     return toAJAX                        
 
 # ============================================
