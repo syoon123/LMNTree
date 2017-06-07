@@ -21,9 +21,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }}</label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Biology</h3><hr />
     {% for item in bio_courses %}
@@ -36,9 +35,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-	{% endfor %}
-	</div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Chemistry</h3><hr />
     {% for item in chem_courses %}
@@ -51,9 +49,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Computer Science</h3><hr/>
     {% for item in cs_courses %}
@@ -66,9 +63,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>English</h3><hr />
     {% for item in eng_courses %}
@@ -81,9 +77,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Health and Physical Education</h3><hr />
     {% for item in health_courses %}
@@ -96,9 +91,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Mathematics</h3><hr />
     {% for item in math_courses %}
@@ -111,9 +105,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Music</h3><hr />
     {% for item in music_courses %}
@@ -126,9 +119,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Physics</h3><hr />
     {% for item in phys_courses %}
@@ -141,9 +133,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }}</label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Social Studies</h3><hr />
     {% for item in social_courses %}
@@ -156,9 +147,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
             </div>
-        </div>
-   {% endfor %}
-  </div>
+        </div>{% endfor %}
+</div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Technology</h3><hr />
     {% for item in tech_courses %}
@@ -171,9 +161,8 @@
                 </label>
                 <label for="fancy-checkbox-success" class="[ btn btn-default active ]"> {{ item }}</label>
             </div>
-        </div>
-   {% endfor %}
-  </div>	
+        </div>{% endfor %}
+</div>
 </div>
 <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <div class="dropdown">
@@ -231,11 +220,11 @@ var x = document.getElementsByClassName("glyphicon-ok");
   }		  
   })
   $("button#submit-initial").click(function() {
-     var list = []
+     var list = [];
      var x = document.getElementsByClassName("checked");
      var i = 0;
      for (i = 0; i < x.length; i++) {
-         list.push(x[i].innerHTML);
+         list.push((x[i].innerHTML).slice(1));
      }
      var data = {};
      data.classes = list;
