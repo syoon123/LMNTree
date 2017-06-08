@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, json
 import sys
 import csv
-from utils import course_selector
+from utils import course_selector, solve
 
 app = Flask(__name__)
 app.secret_key = 'imagine-you-are-a-light-molecule...'
@@ -35,6 +35,10 @@ def class_selector_check():
     classes = res["classes"]
     print classes
     return "success"
+
+@app.route("/debug/", methods=["GET", "POST"])
+def debug():
+    return solve.traverse()
 
 if __name__ == "__main__":
     app.debug = True

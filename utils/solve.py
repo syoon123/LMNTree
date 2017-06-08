@@ -1,6 +1,13 @@
-#import graph,
 import csv, json
 from graph import Course
+
+# ============================================
+# Constants
+# ============================================
+TREEPATH = "./static/tree.csv"
+TESTPATH = "./static/test.csv"
+COURSEPATH = "./static/courses.csv"
+REQPATH = "./static/reqs.csv"
 
 # ============================================
 # Functions
@@ -23,8 +30,7 @@ def updateRelDepths(courselist):
             c.setRelDepth(nextdepth)
             # print repr(c), "depth set to", c.getRelDepth() # Debugging
         tocheck = tocheck[tmp:]
-        nextdepth += 1
-    
+        nextdepth += 1    
 
 # Function taking list of selected coursenames and modifying graph accordingly
 def updateGraph(coursenames):
@@ -136,7 +142,7 @@ def traverse():
     else:
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
-        generateTree(courselist, '../static/tree.csv')
+        generateTree(courselist, TREEPATH)
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
@@ -184,7 +190,7 @@ def traverse():
 # Course, Prereq
 '''
 def generateTree(graph):
-    tree = open("../static/tree.csv", "w")
+    tree = open(TREEPATH, "w")
     for node in graph:
         #line = node.getName() + "," + node.getParents()[0].getName() + "\n"
         line = node.getName() + str(node.getParents()) +"\n"
@@ -250,8 +256,8 @@ def generateTree(graph, treefile):
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-raw = open("../static/test.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-#raw = open("../static/courses.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 # Generating Dictionary of Courses
@@ -344,7 +350,7 @@ while len(tocheck) > 0:
 
 # Updating Required Classes
 # TO CHANGE 
-reqs = open("../static/reqs.csv", "r").read().strip().replace("\r\n", "\n").split("\n")
+reqs = open(REQPATH, "r").read().strip().replace("\r\n", "\n").split("\n")
 for i in reqs:
     coursedict[i].setState(1)
 
@@ -354,12 +360,8 @@ for i in coursedict:
     if coursedict[i].getState() == 1:
         print i
 '''
-# Traverse and Update
-traverse()
 
-# Rel Depth Updating - Untested
-# updateRelDepths(courselist)
-
-# Testing
-#for i in coursedict:
-#    print str(coursedict[i])
+# Traverse and Update - Testing
+if __name__ == "__main__":
+    print traverse()
+    print "THIS IS A TEST."
