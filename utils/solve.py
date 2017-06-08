@@ -4,7 +4,7 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-ROOT = ".."
+ROOT = "."
 TREEPATH = ROOT + "/static/tree.csv"
 COURSEPATH = ROOT + "/static/stuy_courses.csv"
 TESTPATH = ROOT + "/static/test.csv"
@@ -15,6 +15,7 @@ REQPATH = ROOT + "/static/reqs.csv"
 # ============================================
 # Function updating the relative depths of each course
 def updateRelDepths(courselist):
+    #print "I was called."
     checked = []
     tocheck = [i for i in courselist if i.getState() == 1] # Seeded With Required Nodes
     # print "seed", tocheck # Debugging
@@ -22,6 +23,8 @@ def updateRelDepths(courselist):
     for c in tocheck:
         c.setRelDepth(nextdepth) # 0
     while len(tocheck) > 0: 
+        #print tocheck, len(tocheck) # Debugging
+        #print checked # Debugging
         tmp = len(tocheck) # Temporary Variable, Easy Degeneration of tocheck
         for c in tocheck[:tmp]:
             checked += [c]
@@ -30,7 +33,9 @@ def updateRelDepths(courselist):
                     tocheck += [child] # Add Children to List To Be Checked
             c.setRelDepth(nextdepth)
             # print repr(c), "depth set to", c.getRelDepth() # Debugging
+        #print "After iterating through tocheck, ", checked # Debugging
         tocheck = tocheck[tmp:]
+        #print tocheck # Debugging
         nextdepth += 1    
 
 # Function taking list of selected coursenames and modifying graph accordingly
@@ -81,22 +86,19 @@ def traverse(reqs=[]):
     for course in selectedCourses:
         print repr(course), "propagating"
         course.propagateRequested() # Propagate Upwards
-    for course in courselist: # Updating Requirements
-        if course.getState() == 1:
-            for cat in course.getCategory():
-                categories[cat][0] += 1
-
-    # Debugging
-    for course in selected():
-        print "required: " + repr(course)
-
     # Propagate Upwards For Maybes
     maybeCourses = maybes()
     for course in maybeCourses:
         print repr(course), "propagating maybes"
         course.propagateMaybe() # Propagate Upwards - Maybes
-    for course in courselist: # Updating Requirements
-        if course.getState() == 2:
+
+    # Debugging
+    for course in selected():
+        print "required: " + repr(course)
+
+    # Updating Requirements
+    for course in courselist:
+        if course.getState() == 2 or course.getState() == 1:
             for cat in course.getCategory():
                 categories[cat][0] += 1
 
@@ -118,12 +120,16 @@ def traverse(reqs=[]):
     # Using Relative Depth To Add Courses
     toAJAX = {}
     for category in unfulfilled:
+        print "I have moved on to a new category:", category
         check = []
+        print "Number to beat:", categories[category][1] # Debugging
+        smallestRelDepth = 0
         while (categories[category][0] < categories[category][1]): # Requested < Required
-            # print categories[category][0] # Debugging
+            print categories[category][0] # Debugging
             updateRelDepths(courselist) # Update Relative Depths
+            smallestRelDepth += 1
             for c in courselist:
-                if category in c.getCategory() and c.getRelDepth() == 1 and c.getState() % 2 != 1: # First Layer, Not 1 (Required) or 3 (Pruned)
+                if category in c.getCategory() and c.getRelDepth() <= smallestRelDepth and c.getState() % 2 != 1: # First Layer, Not 1 (Required) or 3 (Pruned)
                     check += [c]
                     if c.getState() != 2:
                         categories[category][0] += 1
@@ -290,8 +296,8 @@ def generateTree(graph, treefile):
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+#raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 
@@ -333,25 +339,9 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 5
-categories['Right'][1] = 8
+#categories['Left'][1] = 5
+#categories['Right'][1] = 8
 
-# Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes
-'''''
-del categories['FreshBio']
-del categories['FreshComp']
-del categories['SophChem']
-del categories['JuniorPhysics']
-del categories['Health']
-del categories['EuroLit']
-del categories['ArtApp']
-del categories['MusicApp']
-del categories['Drafting']
-del categories['IntroCS1']
-del categories['Trig']
-'''''
-
-'''
 # Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
 categories['USH'][1] = 2
@@ -368,7 +358,6 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
-'''
 
 # True Depth Calculation
 checked = []
