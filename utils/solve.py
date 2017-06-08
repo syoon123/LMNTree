@@ -247,16 +247,16 @@ def generateTree(graph, treefile):
     # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseree
     def createChildNodes(node, parent, tree):
         addedToTree[node.getName()] += 1
-        addSelf = Course(node.getName() + str(addedToTree[node.getName()]), node.getState(), 1, [], [parent])
+        addSelf = Course(node.getName() + (" " * addedToTree[node.getName()]), node.getState(), 1, [], [parent])
         tree.append(addSelf)
         for child in node.getChildren():
             addedToTree[child.getName()] += 1
             if child in node.getParents():                
-                newNode = Course(child.getName() + str(addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
+                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
                 tree.append(newNode)
                 continue
             if len(child.getChildren()) == 0:
-                newNode = Course(child.getName() + str(addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
+                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
                 tree.append(newNode)
             else:
                 createChildNodes(child, addSelf, tree)
@@ -271,7 +271,7 @@ def generateTree(graph, treefile):
     f = open(treefile, "w")
     f.write("Course,Prereq\n")
     for course in coursetree:
-        if course.getName() == "Mother Node1":
+        if course.getName() == "Mother Node ":
             line = course.getName() + ",\n"
         else:
             line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
