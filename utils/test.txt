@@ -1,0 +1,92 @@
+COURSE A propagating
+COURSE B propagating
+COURSE G propagating
+COURSE O propagating
+required: COURSE A
+required: COURSE B
+required: COURSE D
+required: COURSE G
+required: COURSE F
+required: COURSE K
+required: COURSE J
+required: COURSE O
+COURSE C propagating maybes
+Unfulfilled: ['Right', 'Left']
+Fulfilled: []
+4
+COURSE A depth set to 0
+COURSE B depth set to 0
+COURSE D depth set to 0
+COURSE G depth set to 0
+COURSE F depth set to 0
+COURSE K depth set to 0
+COURSE J depth set to 0
+COURSE O depth set to 0
+COURSE C depth set to 1
+COURSE I depth set to 1
+COURSE H depth set to 1
+COURSE L depth set to 1
+COURSE M depth set to 1
+COURSE N depth set to 1
+COURSE E depth set to 2
+COURSE Q depth set to 2
+COURSE P depth set to 2
+Right layer [COURSE M, COURSE L, COURSE N]
+7
+COURSE A depth set to 0
+COURSE B depth set to 0
+COURSE D depth set to 0
+COURSE G depth set to 0
+COURSE F depth set to 0
+COURSE K depth set to 0
+COURSE J depth set to 0
+COURSE M depth set to 0
+COURSE L depth set to 0
+COURSE O depth set to 0
+COURSE N depth set to 0
+COURSE C depth set to 1
+COURSE I depth set to 1
+COURSE H depth set to 1
+COURSE P depth set to 1
+COURSE E depth set to 2
+COURSE Q depth set to 2
+Right layer [COURSE P]
+5
+COURSE A depth set to 0
+COURSE B depth set to 0
+COURSE D depth set to 0
+COURSE G depth set to 0
+COURSE F depth set to 0
+COURSE K depth set to 0
+COURSE J depth set to 0
+COURSE M depth set to 0
+COURSE L depth set to 0
+COURSE O depth set to 0
+COURSE N depth set to 0
+COURSE P depth set to 0
+COURSE C depth set to 1
+COURSE I depth set to 1
+COURSE H depth set to 1
+COURSE E depth set to 2
+COURSE Q depth set to 2
+Left layer [COURSE C, COURSE I, COURSE H]
+7
+COURSE A depth set to 0
+COURSE C depth set to 0
+COURSE B depth set to 0
+COURSE D depth set to 0
+COURSE G depth set to 0
+COURSE F depth set to 0
+COURSE I depth set to 0
+COURSE H depth set to 0
+COURSE K depth set to 0
+COURSE J depth set to 0
+COURSE M depth set to 0
+COURSE L depth set to 0
+COURSE O depth set to 0
+COURSE N depth set to 0
+COURSE P depth set to 0
+COURSE E depth set to 1
+COURSE Q depth set to 1
+Left layer [COURSE E, COURSE Q]
+{'Right': [COURSE M, COURSE L, COURSE N], 'Left': [COURSE E, COURSE Q]}

@@ -1,0 +1,41 @@
+Geometry I, 0
+Geometry II, Geometry I
+Trigonometry I, Geometry II
+Trigonometry II, Trigonometry I
+PreCalculus I, Trigonometry II
+PreCalculus II, PreCalculus I
+AP Calculus BC, PreCalculus II
+Global History I, 0
+Global History II, Global History I
+Global History III, Global History II
+Global History IV, Global History III
+AP US History I, Global History IV
+AP US History II, AP US History I
+Participation in Government, AP US History II
+Economics, AP US History II
+Freshman Composition I, 0
+Freshman Composition II, Freshman Composition I
+European Literature I, Freshman Composition II
+European Literature II, European Literature I
+American Literature I, European Literature II
+American Literature II, American Literature I
+Early British Literature, American Literature II
+Later British and World Literature, Early British Literature
+Introduction to Computer Science I, 0
+Introduction to Computer Science II, Introduction to Computer Science I
+AP Computer Science I, Introduction to Computer Science II
+AP Computer Science II, AP Computer Science I
+System Level Programming, AP Computer Science II
+Computer Graphics, System Level Programming
+Software Development I, AP Computer Science II
+Software Development II, Software Development I
+Modern Biology I, 0
+Modern Biology II, Modern Biology I
+Vertebrate Zoology, Modern Biology II
+Neurobiology, Modern Biology II
+Modern Chemistry I, 0
+Modern Chemistry II, Modern Chemistry I
+AP Chemistry I, Modern Chemistry II
+AP Chemistry II, AP Chemistry I
+Physics I, 0
+Physics II, Physics I
