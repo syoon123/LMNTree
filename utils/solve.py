@@ -6,8 +6,8 @@ from graph import Course
 # ============================================
 ROOT = "."
 TREEPATH = ROOT + "/static/tree.csv"
+COURSEPATH = ROOT + "/static/stuy_courses.csv"
 TESTPATH = ROOT + "/static/test.csv"
-COURSEPATH = ROOT + "/static/courses.csv"
 REQPATH = ROOT + "/static/reqs.csv"
 
 # ============================================
@@ -15,6 +15,7 @@ REQPATH = ROOT + "/static/reqs.csv"
 # ============================================
 # Function updating the relative depths of each course
 def updateRelDepths(courselist):
+    #print "I was called."
     checked = []
     tocheck = [i for i in courselist if i.getState() == 1] # Seeded With Required Nodes
     # print "seed", tocheck # Debugging
@@ -22,6 +23,8 @@ def updateRelDepths(courselist):
     for c in tocheck:
         c.setRelDepth(nextdepth) # 0
     while len(tocheck) > 0: 
+        #print tocheck, len(tocheck) # Debugging
+        #print checked # Debugging
         tmp = len(tocheck) # Temporary Variable, Easy Degeneration of tocheck
         for c in tocheck[:tmp]:
             checked += [c]
@@ -30,7 +33,9 @@ def updateRelDepths(courselist):
                     tocheck += [child] # Add Children to List To Be Checked
             c.setRelDepth(nextdepth)
             # print repr(c), "depth set to", c.getRelDepth() # Debugging
+        #print "After iterating through tocheck, ", checked # Debugging
         tocheck = tocheck[tmp:]
+        #print tocheck # Debugging
         nextdepth += 1    
 
 # Function taking list of selected coursenames and modifying graph accordingly
@@ -81,22 +86,19 @@ def traverse(reqs=[]):
     for course in selectedCourses:
         print repr(course), "propagating"
         course.propagateRequested() # Propagate Upwards
-    for course in courselist: # Updating Requirements
-        if course.getState() == 1:
-            for cat in course.getCategory():
-                categories[cat][0] += 1
-
-    # Debugging
-    for course in selected():
-        print "required: " + repr(course)
-
     # Propagate Upwards For Maybes
     maybeCourses = maybes()
     for course in maybeCourses:
         print repr(course), "propagating maybes"
         course.propagateMaybe() # Propagate Upwards - Maybes
-    for course in courselist: # Updating Requirements
-        if course.getState() == 2:
+
+    # Debugging
+    for course in selected():
+        print "required: " + repr(course)
+
+    # Updating Requirements
+    for course in courselist:
+        if course.getState() == 2 or course.getState() == 1:
             for cat in course.getCategory():
                 categories[cat][0] += 1
 
@@ -118,12 +120,16 @@ def traverse(reqs=[]):
     # Using Relative Depth To Add Courses
     toAJAX = {}
     for category in unfulfilled:
+        print "I have moved on to a new category:", category
         check = []
+        print "Number to beat:", categories[category][1] # Debugging
+        smallestRelDepth = 0
         while (categories[category][0] < categories[category][1]): # Requested < Required
-            # print categories[category][0] # Debugging
+            print categories[category][0] # Debugging
             updateRelDepths(courselist) # Update Relative Depths
+            smallestRelDepth += 1
             for c in courselist:
-                if category in c.getCategory() and c.getRelDepth() == 1 and c.getState() % 2 != 1: # First Layer, Not 1 (Required) or 3 (Pruned)
+                if category in c.getCategory() and c.getRelDepth() <= smallestRelDepth and c.getState() % 2 != 1: # First Layer, Not 1 (Required) or 3 (Pruned)
                     check += [c]
                     if c.getState() != 2:
                         categories[category][0] += 1
@@ -148,7 +154,27 @@ def traverse(reqs=[]):
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
         print "Final Classes: " + ", ".join([c.getName() for c in courselist if c.getState() == 1 or c.getState() == 2]) # Debugging
-        generateTree(courselist, TREEPATH)
+        
+        # Final Pruning Before Generating Tree
+        for c in courselist:
+            if c.getState() == 2:
+                c.setState(1) # Make All Maybes Into Required
+            if c.getState() == 0:
+                c.setState(3) # Make All Unmarked Into Pruned
+        prunelist = [c for c in coursedict if coursedict[c].getState() == 3]
+        for c in courselist: # Removing From Parents And Children
+            c.setParents(filter(
+                lambda course : course.getName() not in prunelist, c.getParents()
+            ))
+            c.setChildren(filter(
+                lambda course : course.getName() not in prunelist, c.getChildren()
+            ))
+        finallist = [c for c in courselist if c.getName() not in prunelist]
+        for pc in prunelist:
+            del coursedict[pc]
+
+        # Generating Tree
+        generateTree(finallist, TREEPATH)
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
@@ -207,46 +233,68 @@ def generateTree(graph):
 
 # Function taking outputted graph from traverse and name of csv file, populating a tree by duplicating nodes, and writing new graph to the csv
 def generateTree(graph, treefile):
-    courseTree = [] # basically a new courselist, without cycles
+    coursetree = [] # basically a new courselist, without cycles
 
     # keeping track of how many duplicate nodes there are for each course, so names differentiated in csv by number of spaces afterward
 
     addedToTree = {'Mother Node': 0}
     for node in graph:
-        for child in node.getChildren():
-            childName = child.getName()            
-            addedToTree[childName] = 0
+        if not (node == None):
+            addedToTree[node.getName()] = 0
 
-    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseTree
+    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseree
     def createChildNodes(node, parent, tree):
         for child in node.getChildren():
             if child in node.getParents():
                 newNode = Course(child.getName(), child.getState, 1, [], [node])
                 tree.append(newNode)
+                #print str(newNode)
                 continue
             if len(child.getChildren()) == 0:
                 newNode = Course(child.getName(), child.getState, 1, [], [node])
                 tree.append(newNode)
+                #print str(newNode)
             else:
                 createChildNodes(child, node, tree)
         addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
+        #addSelf.setChildren(node.getChildren())
+        print node.getChildren()
         tree.append(addSelf)
+        #print str(addSelf)
 
     # Calling createChildNodes, starting with Mother Node (root)
-    createChildNodes(courselist[0], None, courseTree)
+    createChildNodes(graph[0], None, coursetree)
 
+    # Populate children in coursetree
     
+    # Recursive function renaming nodes in coursetree to get rid of multiple roots problem
+    def numberCourseName(node):            
+        for child in node.getChildren():                
+            if len(child.getChildren()) == 0:
+                childname = child.getName()
+                addedToTree[childname] += 1
+                child.setName(childname + "hi")
+                print "child name modified"
+            else:            
+                numberCourseName(child)                
+        myname = node.getName()
+        addedToTree[myname] += 1
+        node.setName(myname + "hi")
+       # print node.getName()
 
-    # Going through courseTree and writing to treefile
+    # Calling numberCourseName, starting with Mother Node (root)
+    numberCourseName(coursetree[-1])
+    
+    # Going through coursetree and writing to treefile
     f = open(treefile, "w")    
-    for course in courseTree:
-        if course.getName() == "Mother Node0":
+    for course in coursetree:
+        if course.getName() == "Mother Nodehi":
             line = course.getName() + ",\n"
         else:
             line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
         f.write(line)
     f.close()
-            
+    
     '''
     # Going through courseTree and writing to treefile
     f = open(treefile, "w")    
@@ -272,10 +320,11 @@ def generateTree(graph, treefile):
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+#raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
+
 # Generating Dictionary of Courses
 for course in raw:
     c = course.split(",")
@@ -299,11 +348,15 @@ for c in coursedict:
 for c in coursedict:
     courselist += [coursedict[c]]
 
-# Adding Children to Nodes in courselist Based on Parents
-for c in courselist:
-    parents = c.getParents()
-    for p in parents:
-        p.addChild(c)
+# Adding Children to Nodes in Graph Based on Parents
+def populateChildren(courselist):
+    for c in courselist:
+        parents = c.getParents()
+        for p in parents:
+            if not (p == None):
+                p.addChild(c)
+
+populateChildren(courselist)
 
 # Creating List of Categories
 categories = {}
@@ -314,22 +367,8 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 5
-categories['Right'][1] = 6
-
-'''
-# Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
-del categories['FreshBio']
-del categories['FreshComp']
-del categories['SophChem']
-del categories['JuniorPhysics']
-del categories['Health']
-del categories['EuroLit']
-del categories['ArtApp']
-del categories['MusicApp']
-del categories['Drafting']
-del categories['IntroCS1']
-del categories['Trig']
+#categories['Left'][1] = 5
+#categories['Right'][1] = 8
 
 # Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
@@ -347,7 +386,6 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
-'''
 
 # True Depth Calculation
 checked = []

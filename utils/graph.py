@@ -55,12 +55,18 @@ class Course(object):
     def getState(self):
         return self.state
 
+    def setName(self, newName):
+        old = self.getName()
+        self.name = newName
+        return old
     def setState(self,newState):
         old = self.getState()
         self.state = newState
         return old
     def setParents(self,parents):
         self.prereqs[0] = parents
+    def setChildren(self,children):
+        self.children = children
     def setTrueDepth(self,depth):
         self.truedepth = depth;
     def setRelDepth(self,depth):
