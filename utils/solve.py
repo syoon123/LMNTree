@@ -1,6 +1,14 @@
-#import graph,
 import csv, json
 from graph import Course
+
+# ============================================
+# Constants
+# ============================================
+ROOT = "."
+TREEPATH = ROOT + "/static/tree.csv"
+TESTPATH = ROOT + "/static/test.csv"
+COURSEPATH = ROOT + "/static/courses.csv"
+REQPATH = ROOT + "/static/reqs.csv"
 
 # ============================================
 # Functions
@@ -23,8 +31,7 @@ def updateRelDepths(courselist):
             c.setRelDepth(nextdepth)
             # print repr(c), "depth set to", c.getRelDepth() # Debugging
         tocheck = tocheck[tmp:]
-        nextdepth += 1
-    
+        nextdepth += 1    
 
 # Function taking list of selected coursenames and modifying graph accordingly
 def updateGraph(coursenames):
@@ -64,7 +71,11 @@ def pruneMaybes(category):
             course.setState(3) # Pruned State
 
 # Function traversing through graph: mark nodes by propagating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
-def traverse():
+def traverse(reqs=[]):
+    # Updating Required Classes
+    for i in reqs:
+        coursedict[i].setState(1)
+
     # Propagate Upwards For Requested
     selectedCourses = selected() # Requested Courses - State == 1
     for course in selectedCourses:
@@ -136,7 +147,8 @@ def traverse():
     else:
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
-        generateTree(courselist, '../static/tree.csv')
+        print "Final Classes: " + ", ".join([c.getName() for c in courselist if c.getState() == 1 or c.getState() == 2]) # Debugging
+        generateTree(courselist, TREEPATH)
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
@@ -184,7 +196,7 @@ def traverse():
 # Course, Prereq
 '''
 def generateTree(graph):
-    tree = open("../static/tree.csv", "w")
+    tree = open(TREEPATH, "w")
     for node in graph:
         #line = node.getName() + "," + node.getParents()[0].getName() + "\n"
         line = node.getName() + str(node.getParents()) +"\n"
@@ -207,10 +219,12 @@ def generateTree(graph, treefile):
             else:
                 addedToTree[childName] = 1
 
-    # actually populating the tree recursively
+    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseTree
     def createChildNodes(node, parent, tree):
         for child in node.getChildren():
             if child in node.getParents():
+                newNode = Course(child.getName(), child.getState, 1, [], [node])
+                tree.append(newNode)
                 continue
             if len(child.getChildren()) == 0:
                 newNode = Course(child.getName(), child.getState(), 1, [], [node])
@@ -220,9 +234,20 @@ def generateTree(graph, treefile):
         addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
         tree.append(addSelf)
 
+    # Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(courselist[0], None, courseTree)
+
+    # Going through courseTree and writing to treefile
+    f = open(treefile, "w")    
     for course in courseTree:
-        print str(course)
+        if course.getName() == "Mother Node":
+            line = "Mother Node" + ",\n"
+        else:
+            numSpaces = addedToTree[course.getName()] - 1            
+            line = course.getName() + "," + course.getParents()[0].getName() + (" " * numSpaces) + "\n"
+            addedToTree[course.getName()] -= 1
+        f.write(line)
+    f.close()
     
     '''
     for node in graph:
@@ -232,13 +257,12 @@ def generateTree(graph, treefile):
             print str(course)
     '''
         
-        
 # ============================================
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-raw = open("../static/test.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-#raw = open("../static/courses.csv", "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 # Generating Dictionary of Courses
@@ -279,8 +303,8 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 8 #6 #5
-categories['Right'][1] = 8
+categories['Left'][1] = 5
+categories['Right'][1] = 6
 
 '''
 # Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
@@ -329,24 +353,15 @@ while len(tocheck) > 0:
     tocheck = tocheck[tmp:]
     nextdepth += 1
 
-# Updating Required Classes
-# TO CHANGE 
-reqs = open("../static/reqs.csv", "r").read().strip().replace("\r\n", "\n").split("\n")
-for i in reqs:
-    coursedict[i].setState(1)
-
 # Debugging - Look at Required Courses
 '''
 for i in coursedict:
     if coursedict[i].getState() == 1:
         print i
 '''
-# Traverse and Update
-traverse()
 
-# Rel Depth Updating - Untested
-# updateRelDepths(courselist)
-
-# Testing
-#for i in coursedict:
-#    print str(coursedict[i])
+# Traverse and Update - Testing
+if __name__ == "__main__":
+    reqs = open(REQPATH, "r").read().strip().replace("\r\n", "\n").split("\n")
+    print traverse(reqs)
+    print "THIS IS A TEST."
