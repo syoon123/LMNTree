@@ -57,10 +57,13 @@ function update(source) {
 		d._children = d.children;
 		d.children = null;
 	    }else{
+		console.log(d);
+		d.parent?d.parent.children.forEach(function(f){!f.selected?d._children.push(f):true}):true;
 		d.children = d.children?d.children:d._children;
 	    };
 	});
 	nodes = tree.nodes(newroot);
+	console.log(nodes);
 	links = tree.links(nodes);
 	source = newroot;
     };
