@@ -268,7 +268,8 @@ def generateTree(graph, treefile):
         print i
     
     # Going through coursetree and writing to treefile
-    f = open(treefile, "w")    
+    f = open(treefile, "w")
+    f.write("Course,Prereq\n")
     for course in coursetree:
         if course.getName() == "Mother Node1":
             line = course.getName() + ",\n"
