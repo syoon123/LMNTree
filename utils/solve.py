@@ -229,7 +229,7 @@ def generateTree(graph, treefile):
     f = open(treefile, "w")    
     for course in courseTree:
         if course.getName() == "Mother Node":
-            line = "Begin" + ",\n"
+            line = "Mother Node" + ",\n"
         else:
             numSpaces = addedToTree[course.getName()] - 1            
             line = course.getName() + "," + course.getParents()[0].getName() + (" " * numSpaces) + "\n"
