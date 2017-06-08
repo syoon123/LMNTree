@@ -4,10 +4,11 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-TREEPATH = "./static/tree.csv"
-TESTPATH = "./static/test.csv"
-COURSEPATH = "./static/courses.csv"
-REQPATH = "./static/reqs.csv"
+ROOT = "."
+TREEPATH = ROOT + "/static/tree.csv"
+TESTPATH = ROOT + "/static/test.csv"
+COURSEPATH = ROOT + "/static/courses.csv"
+REQPATH = ROOT + "/static/reqs.csv"
 
 # ============================================
 # Functions
@@ -70,7 +71,11 @@ def pruneMaybes(category):
             course.setState(3) # Pruned State
 
 # Function traversing through graph: mark nodes by propagating selected/required courses, then check grad requirements and mark nodes as "maybe" accordingly.
-def traverse():
+def traverse(reqs=[]):
+    # Updating Required Classes
+    for i in reqs:
+        coursedict[i].setState(1)
+
     # Propagate Upwards For Requested
     selectedCourses = selected() # Requested Courses - State == 1
     for course in selectedCourses:
@@ -142,6 +147,7 @@ def traverse():
     else:
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
+        print "Final Classes: " + ", ".join([c.getName() for c in courselist if c.getState() == 1 or c.getState() == 2]) # Debugging
         generateTree(courselist, TREEPATH)
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
@@ -251,7 +257,6 @@ def generateTree(graph, treefile):
             print str(course)
     '''
         
-        
 # ============================================
 # Data Parsing From CSV 
 # ============================================
@@ -298,8 +303,8 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 8 #6 #5
-categories['Right'][1] = 8
+categories['Left'][1] = 5
+categories['Right'][1] = 6
 
 '''
 # Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
@@ -348,12 +353,6 @@ while len(tocheck) > 0:
     tocheck = tocheck[tmp:]
     nextdepth += 1
 
-# Updating Required Classes
-# TO CHANGE 
-reqs = open(REQPATH, "r").read().strip().replace("\r\n", "\n").split("\n")
-for i in reqs:
-    coursedict[i].setState(1)
-
 # Debugging - Look at Required Courses
 '''
 for i in coursedict:
@@ -363,5 +362,6 @@ for i in coursedict:
 
 # Traverse and Update - Testing
 if __name__ == "__main__":
-    print traverse()
+    reqs = open(REQPATH, "r").read().strip().replace("\r\n", "\n").split("\n")
+    print traverse(reqs)
     print "THIS IS A TEST."

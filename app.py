@@ -38,7 +38,8 @@ def class_selector_check():
 
 @app.route("/debug/", methods=["GET", "POST"])
 def debug():
-    return solve.traverse()
+    reqs = ["G","L"]
+    return solve.traverse(reqs)
 
 if __name__ == "__main__":
     app.debug = True
