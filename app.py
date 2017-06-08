@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify, j
 import sys
 import csv
 from utils import course_selector
+#  from utils import solve
 
 app = Flask(__name__)
 app.secret_key = 'imagine-you-are-a-light-molecule...'
@@ -33,7 +34,6 @@ def class_selector():
 def class_selector_check():
     res = request.json
     classes = res["classes"]
-    print classes
     return "success"
 
 if __name__ == "__main__":
