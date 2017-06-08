@@ -111,7 +111,7 @@ function update(source) {
 		return "translate(" + d.y + "," + d.x + ")"; });
 
 	nodeEnter.append("rect")
-	    .attr("width", function(d){ return d.id.split('').length * 6;})
+	    .attr("width", function(d){ return 4 + d.id.trim().split('').length * 6;})
 	    .attr("height", 20).attr("y",-10)
 	    .style("fill",function(d){return d.selected?"green":"#fff";})
 	    .style("stroke-width","1")
@@ -123,7 +123,7 @@ function update(source) {
 	    .attr("dy", ".35em")
 	    .attr("text-anchor", function(d) { 
 		return "start"; })
-	    .text(function(d) { return d.id; })
+	    .text(function(d) { return d.id.trim(); })
 	    .style("fill-opacity", 1).style('font-size','10px');
 
 	// Declare the linksâ€¦
