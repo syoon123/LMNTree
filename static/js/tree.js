@@ -3,7 +3,8 @@ var data = document.getElementById("data").innerHTML;
 var table = d3.csvParse(data, function(d,i){
     return{
 	id: d.Course,
-	parentId: d.Prereq  };
+	parentId: d.Prereq,
+	selected:false};
 });
 
 //console.log(table);
@@ -32,16 +33,33 @@ root = treeData;
 
 update(root,1);
 function update(source) {
-    depth = 1
+    var depth = 1
     var updatebuttons = function(){
 	for(i = depth; i<= depth; i++){
-	    svg.append("circle").attr('class','buttons').attr('r',30).attr('x', 180).attr('y', 10).attr('selected',false).style("fill","green").attr('transform', 'translate(' + (i * 180) + ",0)").on('click', function(){
+	    svg.append("circle").attr('class','buttons').attr('r',30).attr('x', 180).attr('y', 15).attr('selected',false).style("fill","green").attr('transform', 'translate(' + (i * 180) + ",0)").on('click', function(){
+		var tally = 0;
+		source.descendants().forEach(
+		    function(d){
+			d.depth - depth == -1 && d.selected?tally++:tally+=0;
+		    });
+		if (depth > 1 && (tally < 7 || tally > 10)){
+		    console.log(tally);
+		    alert('please select between 7 and 10 classes');
+		    return;
+		};
 		depth += 1;
 		updatebuttons();
 		updatenodes();
 		updatetree();
 		this.parentElement.removeChild(this);
-	    });
+	    }).append("text")
+		.attr('x',0).attr('y',0)
+		.attr("dy", ".35em")
+		.attr('transform', 'translate(' + (i * 180) + ",0)")
+		.attr("text-anchor", function(d) { 
+		    return "start"; })
+		.text(function(d) { return 'next'; })
+		.style("fill-opacity", 1).style('font-color','white');
 	};
     };
     updatebuttons();
@@ -58,7 +76,7 @@ function update(source) {
 		d.children = null;
 	    }else{
 		console.log(d);
-		d.parent?d.parent.children.forEach(function(f){!f.selected?d._children.push(f):true}):true;
+	//	d.parent?d.parent.children.forEach(function(f){!f.selected?d._children.push(f):true}):true;
 		d.children = d.children?d.children:d._children;
 	    };
 	});
@@ -75,7 +93,7 @@ function update(source) {
     // Normalize for fixed-depth.
     var updatetree = function(){
 	nodes.forEach(function(d) { d.y = d.depth * 180; });
-	// Declare the nodes
+	links.forEach(function(d){console.log(d)});// Declare the nodes
 	
 	var node = svg.selectAll("g.node")
 	    .data(nodes, function(d) { return d.id || (d.id = ++i); });
@@ -114,7 +132,6 @@ function update(source) {
 	// Enter the links.
 	link.enter().insert("path", "g")
 	    .attr("class", "link")
-	    .attr("display",function(d){return d.target.depth > depth?"none":""})
 	    .attr("d", diagonal);
     };
     updatetree();
