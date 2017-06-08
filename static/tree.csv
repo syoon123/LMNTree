@@ -1,11 +1,11 @@
 E,C
-G,F
-F,C
+G,F 
+F,C  
 Q,C
-C,A
+C,A 
 E,C
 G,F
-F,C
+F,C 
 Q,C
 C,D
 F,G
@@ -16,11 +16,11 @@ G,F
 F,D
 D,A
 A,Mother Node
-N,M
+N,M 
 P,M
-M,O
+M,O 
 N,O
-O,K
+O,K 
 K,J
 N,M
 P,M
