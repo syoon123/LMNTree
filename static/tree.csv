@@ -1,36 +1,36 @@
-E,C
-G,F 
-F,C  
-Q,C
-C,A 
-E,C
-G,F
-F,C 
-Q,C
-C,D
-F,G
-I,G
-H,G
-G,D
-G,F
-F,D
-D,A
-A,Mother Node
-N,M 
-P,M
-M,O 
-N,O
-O,K 
-K,J
-N,M
-P,M
-M,L
-L,J
-N,M
-P,M
-M,O
-N,O
-O,J
-J,B
-B,Mother Node
-Mother Node,
+E0,C
+G0,F
+F0,C
+Q0,C
+C0,A
+E1,C
+G0,F
+F1,C
+Q1,C
+C1,D
+F2,G
+I0,G
+H0,G
+G0,D
+G1,F
+F2,D
+D0,A
+A0,Mother Node
+N0,M
+P0,M
+M0,O
+N1,O
+O0,K
+K0,J
+N2,M
+P1,M
+M1,L
+L0,J
+N3,M
+P2,M
+M2,O
+N4,O
+O1,J
+J0,B
+B0,Mother Node
+Mother Node0,
