@@ -258,7 +258,6 @@ def generateTree(graph, treefile):
     # Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(graph[0], None, coursetree)
 
-<<<<<<< HEAD
     # Populate children in coursetree
     for course in coursetree:
         parent = course.getParents()[0]
