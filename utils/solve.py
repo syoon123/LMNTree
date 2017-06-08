@@ -159,8 +159,6 @@ def traverse(reqs=[]):
         for c in courselist:
             if c.getName() == "Mother Node":
                 c.setState(1)
-            if c.getState() == 2:
-                c.setState(1) # Make All Maybes Into Required
             if c.getState() == 0:
                 c.setState(3) # Make All Unmarked Into Pruned
         prunelist = [c for c in coursedict if coursedict[c].getState() == 3]

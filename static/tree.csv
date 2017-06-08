@@ -1,11 +1,11 @@
 Course,Prereq,State
 Mother Node ,
 A  ,Mother Node ,1
-C  ,A  ,1
+C  ,A  ,2
 F  ,C  ,1
 G ,F  ,<bound method Course.getState of COURSE G>
 D  ,A  ,1
-C    ,D  ,1
+C    ,D  ,2
 F    ,C    ,1
 G  ,F    ,<bound method Course.getState of COURSE G>
 G    ,D  ,1
