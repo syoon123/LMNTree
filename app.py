@@ -24,11 +24,10 @@ def class_selector():
     eng_courses = course_selector_courses["English"]
     health_courses = course_selector_courses["Health and Physical Education"]
     math_courses = course_selector_courses["Mathematics"]
-    music_courses = course_selector_courses["Music"]
     phys_courses = course_selector_courses["Physics"]
     social_courses = course_selector_courses["Social Studies"]
     tech_courses = course_selector_courses["Technology"]
-    return render_template('class_selector.html', art_courses = art_courses, bio_courses = bio_courses, chem_courses= chem_courses, cs_courses = cs_courses, eng_courses = eng_courses, health_courses = health_courses, math_courses = math_courses, music_courses = music_courses, phys_courses = phys_courses, social_courses = social_courses, tech_courses = tech_courses)
+    return render_template('class_selector.html', art_courses = art_courses, bio_courses = bio_courses, chem_courses= chem_courses, cs_courses = cs_courses, eng_courses = eng_courses, health_courses = health_courses, math_courses = math_courses, phys_courses = phys_courses, social_courses = social_courses, tech_courses = tech_courses)
 
 @app.route("/class_selector_check", methods = ["POST"])
 def class_selector_check():
