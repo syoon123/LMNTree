@@ -180,58 +180,9 @@ def traverse(reqs=[]):
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
-    '''
-    # Deprecated Code
-    for course in courselist:
-            while (categories[
-            if course.getState() == 0 and category in course.getCategory():
-                course.setState(2)
-                course.propagateRequested() # classes marked as maybe if grad req isn't fulfilled
-
-                    def removeNode(course):
-        for parent in course.getParents():
-            parent.removeChild(course)
-        for child in course.getChildren():
-            child.removeParent(course)
-        courselist.remove(course)
-    for course in courselist:
-        if course.getState() == 0:
-            removeNode(course) # pruned
-    maybeCourses = maybes()
-    toAJAX = {}
-    if len(unfulfilled) > 0:
-        for key, value in unfulfilled.items():
-            numNeeded = value[1] - value[0]
-            choices = []
-            lowestCurrentRelDepth = 0
-            while len(choices) < numNeeded:
-                lowestCurrentRelDepth += 1
-                for course in maybeCourses:
-                    # print course
-                    if key in course.getCategory() and course.getRelDepth() == lowestCurrentRelDepth:
-                        choices.append(course.getName())
-                        toAJAX[key] = {'helptext':'Choose ' + numNeeded + ' of the following courses.', 'choices':choices}
-                    break
-
-                break
-    #else:
-        #generateTree(courselist) # Build Tree
-    '''
-
 # ============================================
 # Writing to Tree CSV
 # ============================================
-# Course, Prereq
-'''
-def generateTree(graph):
-    tree = open(TREEPATH, "w")
-    for node in graph:
-        #line = node.getName() + "," + node.getParents()[0].getName() + "\n"
-        line = node.getName() + str(node.getParents()) +"\n"
-        print line
-        tree.write(line)
-    tree.close()
-'''
 
 # Function taking outputted graph from traverse and name of csv file, populating a tree by duplicating nodes, and writing new graph to the csv
 def generateTree(graph, treefile):
@@ -264,17 +215,14 @@ def generateTree(graph, treefile):
     #Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(graph[0], None, coursetree)
 
-    for i in coursetree:
-        print i
-    
     # Going through coursetree and writing to treefile
     f = open(treefile, "w")
-    f.write("Course,Prereq\n")
+    f.write("Course,Prereq,State\n")
     for course in coursetree:
         if course.getName() == "Mother Node ":
             line = course.getName() + ",\n"
         else:
-            line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
+            line = course.getName() + "," + course.getParents()[0].getName() + "," + str(course.getState()) + "\n"        
         f.write(line)
     f.close()
         
