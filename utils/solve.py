@@ -4,10 +4,10 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-ROOT = "."
+ROOT = ".."
 TREEPATH = ROOT + "/static/tree.csv"
-TESTPATH = ROOT + "/static/stuy_courses.csv"
-COURSEPATH = ROOT + "/static/courses.csv"
+COURSEPATH = ROOT + "/static/stuy_courses.csv"
+TESTPATH = ROOT + "/static/test.csv"
 REQPATH = ROOT + "/static/reqs.csv"
 
 # ============================================
@@ -148,7 +148,27 @@ def traverse(reqs=[]):
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
         print "Final Classes: " + ", ".join([c.getName() for c in courselist if c.getState() == 1 or c.getState() == 2]) # Debugging
-        generateTree(courselist, TREEPATH)
+        
+        # Final Pruning Before Generating Tree
+        for c in courselist:
+            if c.getState() == 2:
+                c.setState(1) # Make All Maybes Into Required
+            if c.getState() == 0:
+                c.setState(3) # Make All Unmarked Into Pruned
+        prunelist = [c for c in coursedict if coursedict[c].getState() == 3]
+        for c in courselist: # Removing From Parents And Children
+            c.setParents(filter(
+                lambda course : course.getName() not in prunelist, c.getParents()
+            ))
+            c.setChildren(filter(
+                lambda course : course.getName() not in prunelist, c.getChildren()
+            ))
+        finallist = [c for c in courselist if c.getName() not in prunelist]
+        for pc in prunelist:
+            del coursedict[pc]
+
+        # Generating Tree
+        generateTree(finallist, TREEPATH)
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
@@ -235,8 +255,6 @@ def generateTree(graph, treefile):
     # Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(courselist[0], None, courseTree)
 
-    
-
     # Going through courseTree and writing to treefile
     f = open(treefile, "w")    
     for course in courseTree:
@@ -276,6 +294,7 @@ raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] #
 #raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
+
 # Generating Dictionary of Courses
 for course in raw:
     c = course.split(",")
@@ -314,8 +333,8 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-#categories['Left'][1] = 5
-#categories['Right'][1] = 6
+categories['Left'][1] = 5
+categories['Right'][1] = 8
 
 # Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes
 '''''
@@ -331,6 +350,8 @@ del categories['Drafting']
 del categories['IntroCS1']
 del categories['Trig']
 '''''
+
+'''
 # Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
 categories['USH'][1] = 2
@@ -347,6 +368,7 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
+'''
 
 # True Depth Calculation
 checked = []

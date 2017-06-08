@@ -61,6 +61,8 @@ class Course(object):
         return old
     def setParents(self,parents):
         self.prereqs[0] = parents
+    def setChildren(self,children):
+        self.children = children
     def setTrueDepth(self,depth):
         self.truedepth = depth;
     def setRelDepth(self,depth):
