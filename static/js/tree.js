@@ -7,7 +7,7 @@ var table = d3.csvParse(data, function(d,i){
 	selected:false};
 });
 
-//console.log(table);
+console.log(table);
 
 var treeData = d3.stratify()(table);
 
