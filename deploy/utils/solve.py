@@ -1,5 +1,5 @@
 #import graph,
-import csv
+import csv, json
 from graph import Course
 
 # ============================================
@@ -125,12 +125,22 @@ def traverse():
             if len(check) == 1: # Only One Choice
                 check[0].setState(1) # Require The Class
             elif len(check) > 1: # User Will Have To Make A Choice
-                toAJAX[category] = check
+                toAJAX[category] = [[c.getName() for c in check], len(check) - categories[category][0] + categories[category][1]] # [[items], number_to_select]
             check = [] # The Final Result Will Be The Last Layer
             
-    print toAJAX
-            
+    retAJAX = {}
+    if len(toAJAX) > 0: # At Least One Unfulfilled Category
+        retAJAX["choices"] = toAJAX
+        retAJAX["errcode"] = 1 # 1 - Needs User Input
+        retAJAX["errmsg"] = "Select more classes!"
+    else:
+        retAJAX["errcode"] = -1
+        retAJAX["errmsg"] = "All is well!"
+    print json.dumps(retAJAX) # Debugging
+    return json.dumps(retAJAX) # Final JSON
+
     '''
+    # Deprecated Code
     for course in courselist:
             while (categories[
             if course.getState() == 0 and category in course.getCategory():
@@ -166,7 +176,6 @@ def traverse():
     #else:
         #generateTree(courselist) # Build Tree
     '''
-    return "done" #toAJAX                        
 
 # ============================================
 # Writing to Tree CSV
