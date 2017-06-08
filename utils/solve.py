@@ -210,14 +210,12 @@ def generateTree(graph, treefile):
     courseTree = [] # basically a new courselist, without cycles
 
     # keeping track of how many duplicate nodes there are for each course, so names differentiated in csv by number of spaces afterward
-    addedToTree = {} # <courseName>:<numDuplicates>
+
+    addedToTree = {'Mother Node': 0}
     for node in graph:
         for child in node.getChildren():
-            childName = child.getName()
-            if childName in addedToTree:
-                addedToTree[childName] += 1
-            else:
-                addedToTree[childName] = 1
+            childName = child.getName()            
+            addedToTree[childName] = 0
 
     # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseTree
     def createChildNodes(node, parent, tree):
@@ -227,7 +225,7 @@ def generateTree(graph, treefile):
                 tree.append(newNode)
                 continue
             if len(child.getChildren()) == 0:
-                newNode = Course(child.getName(), child.getState(), 1, [], [node])
+                newNode = Course(child.getName(), child.getState, 1, [], [node])
                 tree.append(newNode)
             else:
                 createChildNodes(child, node, tree)
@@ -237,18 +235,31 @@ def generateTree(graph, treefile):
     # Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(courselist[0], None, courseTree)
 
+    
+
+    # Going through courseTree and writing to treefile
+    f = open(treefile, "w")    
+    for course in courseTree:
+        if course.getName() == "Mother Node0":
+            line = course.getName() + ",\n"
+        else:
+            line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
+        f.write(line)
+    f.close()
+            
+    '''
     # Going through courseTree and writing to treefile
     f = open(treefile, "w")    
     for course in courseTree:
         if course.getName() == "Mother Node":
-            line = "Mother Node" + ",\n"
+            line = "Mother Node0" + ",\n"
         else:
-            numSpaces = addedToTree[course.getName()] - 1            
-            line = course.getName() + "," + course.getParents()[0].getName() + (" " * numSpaces) + "\n"
-            addedToTree[course.getName()] -= 1
+            numSpaces = addedToTree[course.getName()]            
+            line = course.getName() + "," + course.getParents()[0].getName() + str(numSpaces) + "\n"
+            addedToTree[course.getName()] += 1
         f.write(line)
     f.close()
-    
+    '''
     '''
     for node in graph:
         for child in node.getChildren():
