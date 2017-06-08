@@ -4,7 +4,7 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-ROOT = "."
+ROOT = ".."
 TREEPATH = ROOT + "/static/tree.csv"
 TESTPATH = ROOT + "/static/test.csv"
 COURSEPATH = ROOT + "/static/courses.csv"
@@ -207,7 +207,7 @@ def generateTree(graph):
 
 # Function taking outputted graph from traverse and name of csv file, populating a tree by duplicating nodes, and writing new graph to the csv
 def generateTree(graph, treefile):
-    courseTree = [] # basically a new courselist, without cycles
+    coursetree = [] # basically a new courselist, without cycles
 
     # keeping track of how many duplicate nodes there are for each course, so names differentiated in csv by number of spaces afterward
 
@@ -217,36 +217,66 @@ def generateTree(graph, treefile):
             childName = child.getName()            
             addedToTree[childName] = 0
 
-    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseTree
+    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseree
     def createChildNodes(node, parent, tree):
         for child in node.getChildren():
             if child in node.getParents():
                 newNode = Course(child.getName(), child.getState, 1, [], [node])
                 tree.append(newNode)
+                #print str(newNode)
                 continue
             if len(child.getChildren()) == 0:
                 newNode = Course(child.getName(), child.getState, 1, [], [node])
                 tree.append(newNode)
+                #print str(newNode)
             else:
                 createChildNodes(child, node, tree)
         addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
         tree.append(addSelf)
+        #print str(addSelf)
 
     # Calling createChildNodes, starting with Mother Node (root)
-    createChildNodes(courselist[0], None, courseTree)
+    createChildNodes(graph[0], None, coursetree)
 
+    # Populate children in coursetree
+    for course in coursetree:
+        parent = course.getParents()[0]
+        if parent == None:
+            pass
+        else:
+            parent.addChild(course)
+            print "child added"
+    for course in coursetree:
+        print course.getChildren()
     
+    # Recursive function renaming nodes in coursetree to get rid of multiple roots problem
+    def numberCourseName(node):            
+        for child in node.getChildren():                
+            if len(child.getChildren()) == 0:
+                childname = child.getName()
+                addedToTree[childname] += 1
+                child.setName(childname + "hi")
+                print "child name modified"
+            else:            
+                numberCourseName(child)                
+        myname = node.getName()
+        addedToTree[myname] += 1
+        node.setName(myname + "hi")
+       # print node.getName()
 
-    # Going through courseTree and writing to treefile
+    # Calling numberCourseName, starting with Mother Node (root)
+    numberCourseName(coursetree[-1])
+    
+    # Going through coursetree and writing to treefile
     f = open(treefile, "w")    
-    for course in courseTree:
-        if course.getName() == "Mother Node0":
+    for course in coursetree:
+        if course.getName() == "Mother Nodehi":
             line = course.getName() + ",\n"
         else:
             line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
         f.write(line)
     f.close()
-            
+    
     '''
     # Going through courseTree and writing to treefile
     f = open(treefile, "w")    
@@ -299,11 +329,15 @@ for c in coursedict:
 for c in coursedict:
     courselist += [coursedict[c]]
 
-# Adding Children to Nodes in courselist Based on Parents
-for c in courselist:
-    parents = c.getParents()
-    for p in parents:
-        p.addChild(c)
+# Adding Children to Nodes in Graph Based on Parents
+def populateChildren(courselist):
+    for c in courselist:
+        parents = c.getParents()
+        for p in parents:
+            if not (p == None):
+                p.addChild(c)
+
+populateChildren(courselist)
 
 # Creating List of Categories
 categories = {}

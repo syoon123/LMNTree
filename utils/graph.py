@@ -55,6 +55,10 @@ class Course(object):
     def getState(self):
         return self.state
 
+    def setName(self, newName):
+        old = self.getName()
+        self.name = newName
+        return old
     def setState(self,newState):
         old = self.getState()
         self.state = newState

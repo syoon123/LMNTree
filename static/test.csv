@@ -11,8 +11,8 @@ H,G,1,0,Left
 I,G,1,1,Left
 J,B,1,0,Right
 K,J,1,0,Right
-L,J,1,0,Right
-M,L|O,1,0,Right
+L,J,1,1,Right
+M,L|O,1,1,Right
 N,M|O,1,0,Right
 O,J|K,2,0,Right
 P,M,1,0,Right
