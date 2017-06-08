@@ -5,8 +5,10 @@
     <title>Select Your Classes</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="static/css/class_selector.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
@@ -108,20 +110,6 @@
         </div>{% endfor %}
 </div>
   <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
-    <h3>Music</h3><hr />
-    {% for item in music_courses %}
-        <div class="[ form-group ]">
-            <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success" autocomplete="off" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-success" class="[ btn btn-success ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }} </label>
-            </div>
-        </div>{% endfor %}
-</div>
-  <div class="[ col-xs-12 col-sm-6 col-md-4 col-lg-3]">
     <h3>Physics</h3><hr />
     {% for item in phys_courses %}
         <div class="[ form-group ]">
@@ -176,6 +164,20 @@
   <br>
   <br>
   <br>
+  <div id = "dialog" title="Basic dialog">
+    <h3>Art</h3><hr />
+    {% for item in art_courses %}
+        <div class="[ form-group ]">
+            <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success" autocomplete="off" />
+            <div class="[ btn-group ]">
+                <label for="fancy-checkbox-success" class="[ btn btn-success ]">
+                    <span class="[ glyphicon glyphicon-ok ]"></span>
+                    <span> </span>
+                </label>
+                <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }}</label>
+            </div>
+        </div>{% endfor %}
+</div>
   <div class = "[ col-xs-12 col-sm-12 col-md-12 col-lg-12]" style = "text-align: center;" >
     <button type = "button" class = "btn btn-danger" id = "submit-initial">Submit</button>
   </div>
@@ -203,6 +205,9 @@ var x = document.getElementsByClassName("glyphicon-ok");
   for (i = 0; i < y.length; i++) {
       y[i].childNodes[3].style.display = "inline-block";
   }
+  $( function() {
+      $("#dialog").dialog();
+  });
   $(".btn-group").click(function() {
       var text_label = $(this).children()[1];
       var label = $(this).children()[0];
@@ -218,7 +223,7 @@ var x = document.getElementsByClassName("glyphicon-ok");
           empty_space.style.display = "inline-block";
 	  $(text_label).toggleClass("checked");
   }		  
-  })
+  });
   $("button#submit-initial").click(function() {
      var list = [];
      var x = document.getElementsByClassName("checked");
@@ -237,11 +242,15 @@ var x = document.getElementsByClassName("glyphicon-ok");
 	contentType: "application/json",
 	data: JSON.stringify(data),
 	success: function (data) {
+	    console.log(data);
+	    var html = '';
+
+	    $("#dialog").html(html);
 	},
 	error: function (data) {
 	}
 	})
-})
+});
 
 </script>
 </html>
