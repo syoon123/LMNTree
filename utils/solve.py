@@ -6,7 +6,7 @@ from graph import Course
 # ============================================
 ROOT = "."
 TREEPATH = ROOT + "/static/tree.csv"
-TESTPATH = ROOT + "/static/test.csv"
+TESTPATH = ROOT + "/static/stuy_courses.csv"
 COURSEPATH = ROOT + "/static/courses.csv"
 REQPATH = ROOT + "/static/reqs.csv"
 
@@ -303,11 +303,11 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-categories['Left'][1] = 5
-categories['Right'][1] = 6
+#categories['Left'][1] = 5
+#categories['Right'][1] = 6
 
-'''
-# Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes            
+# Deleting categories from dictionary that are  already fulfilled by preselected mandatory classes
+'''''
 del categories['FreshBio']
 del categories['FreshComp']
 del categories['SophChem']
@@ -319,7 +319,7 @@ del categories['MusicApp']
 del categories['Drafting']
 del categories['IntroCS1']
 del categories['Trig']
-
+'''''
 # Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
 categories['USH'][1] = 2
@@ -336,7 +336,6 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
-'''
 
 # True Depth Calculation
 checked = []
