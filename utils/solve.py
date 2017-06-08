@@ -207,10 +207,12 @@ def generateTree(graph, treefile):
             else:
                 addedToTree[childName] = 1
 
-    # actually populating the tree recursively
+    # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseTree
     def createChildNodes(node, parent, tree):
         for child in node.getChildren():
             if child in node.getParents():
+                newNode = Course(child.getName(), child.getState, 1, [], [node])
+                tree.append(newNode)
                 continue
             if len(child.getChildren()) == 0:
                 newNode = Course(child.getName(), child.getState(), 1, [], [node])
@@ -220,9 +222,18 @@ def generateTree(graph, treefile):
         addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
         tree.append(addSelf)
 
+    # Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(courselist[0], None, courseTree)
+
+    # Going through courseTree and writing to treefile
+    f = open(treefile, "w")    
     for course in courseTree:
-        print str(course)
+        if course.getName() == "Mother Node":
+            line = "Begin" + ",\n"
+        else:
+            line = course.getName() + "," + course.getParents()[0].getName() + "\n"
+        f.write(line)
+    f.close()
     
     '''
     for node in graph:
