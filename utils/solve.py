@@ -233,9 +233,8 @@ def generateTree(graph, treefile):
 
     addedToTree = {'Mother Node': 0}
     for node in graph:
-        for child in node.getChildren():
-            childName = child.getName()            
-            addedToTree[childName] = 0
+        if not (node == None):
+            addedToTree[node.getName()] = 0
 
     # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseree
     def createChildNodes(node, parent, tree):
@@ -252,6 +251,8 @@ def generateTree(graph, treefile):
             else:
                 createChildNodes(child, node, tree)
         addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
+        #addSelf.setChildren(node.getChildren())
+        print node.getChildren()
         tree.append(addSelf)
         #print str(addSelf)
 
@@ -259,15 +260,6 @@ def generateTree(graph, treefile):
     createChildNodes(graph[0], None, coursetree)
 
     # Populate children in coursetree
-    for course in coursetree:
-        parent = course.getParents()[0]
-        if parent == None:
-            pass
-        else:
-            parent.addChild(course)
-            print "child added"
-    for course in coursetree:
-        print course.getChildren()
     
     # Recursive function renaming nodes in coursetree to get rid of multiple roots problem
     def numberCourseName(node):            
