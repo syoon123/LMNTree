@@ -33,7 +33,8 @@ def class_selector():
 def class_selector_check():
     res = request.json
     classes = res["classes"]
-    return "success"
+    print classes
+    return solve.traverse(classes)
 
 @app.route("/debug/", methods=["GET", "POST"])
 def debug():
