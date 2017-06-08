@@ -136,7 +136,7 @@ def traverse():
     else:
         retAJAX["errcode"] = -1
         retAJAX["errmsg"] = "All is well!"
-        generateTree(courselist)
+        generateTree(courselist, '../static/tree.csv')
     print json.dumps(retAJAX) # Debugging
     return json.dumps(retAJAX) # Final JSON
 
@@ -182,15 +182,57 @@ def traverse():
 # Writing to Tree CSV
 # ============================================
 # Course, Prereq
+'''
 def generateTree(graph):
     tree = open("../static/tree.csv", "w")
     for node in graph:
         #line = node.getName() + "," + node.getParents()[0].getName() + "\n"
-        line = node.getName() + "\n"
+        line = node.getName() + str(node.getParents()) +"\n"
         print line
         tree.write(line)
     tree.close()
+'''
 
+# Function taking outputted graph from traverse and name of csv file, populating a tree by duplicating nodes, and writing new graph to the csv
+def generateTree(graph, treefile):
+    courseTree = [] # basically a new courselist, without cycles
+
+    # keeping track of how many duplicate nodes there are for each course, so names differentiated in csv by number of spaces afterward
+    addedToTree = {} # <courseName>:<numDuplicates>
+    for node in graph:
+        for child in node.getChildren():
+            childName = child.getName()
+            if childName in addedToTree:
+                addedToTree[childName] += 1
+            else:
+                addedToTree[childName] = 1
+
+    # actually populating the tree recursively
+    def createChildNodes(node, parent, tree):
+        for child in node.getChildren():
+            if child in node.getParents():
+                continue
+            if len(child.getChildren()) == 0:
+                newNode = Course(child.getName(), child.getState(), 1, [], [node])
+                tree.append(newNode)
+            else:
+                createChildNodes(child, node, tree)
+        addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
+        tree.append(addSelf)
+
+    createChildNodes(courselist[0], None, courseTree)
+    for course in courseTree:
+        print str(course)
+    
+    '''
+    for node in graph:
+        for child in node.getChildren():
+            nodeCopy = Course(node.getName(), node.getState(), 1, [],[])
+            course = Course(child.getName(), child.getState(), 1, [], [nodeCopy])
+            print str(course)
+    '''
+        
+        
 # ============================================
 # Data Parsing From CSV 
 # ============================================
