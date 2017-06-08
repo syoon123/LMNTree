@@ -1,6 +1,7 @@
 var data = document.getElementById("data").innerHTML;
 
 var table = d3.csvParse(data, function(d,i){
+    console.log(d);
     return{
 	id: d.Course,
 	parentId: d.Prereq,
@@ -42,11 +43,11 @@ function update(source) {
 		    function(d){
 			d.depth - depth == -1 && d.selected?tally++:tally+=0;
 		    });
-		if (depth > 1 && (tally < 7 || tally > 10)){
+		/*if (depth > 1 && (tally < 7 || tally > 10)){
 		    console.log(tally);
 		    alert('please select between 7 and 10 classes');
 		    return;
-		};
+		};*/
 		depth += 1;
 		updatebuttons();
 		updatenodes();
