@@ -157,6 +157,8 @@ def traverse(reqs=[]):
         
         # Final Pruning Before Generating Tree
         for c in courselist:
+            if c.getName() == "Mother Node":
+                c.setState(1)
             if c.getState() == 2:
                 c.setState(1) # Make All Maybes Into Required
             if c.getState() == 0:
@@ -244,84 +246,43 @@ def generateTree(graph, treefile):
 
     # Recursive Function taking a node, its parent, and the tree to be populated, creating nodes to add to courseree
     def createChildNodes(node, parent, tree):
+        addedToTree[node.getName()] += 1
+        addSelf = Course(node.getName() + str(addedToTree[node.getName()]), node.getState(), 1, [], [parent])
+        tree.append(addSelf)
         for child in node.getChildren():
-            if child in node.getParents():
-                newNode = Course(child.getName(), child.getState, 1, [], [node])
+            addedToTree[child.getName()] += 1
+            if child in node.getParents():                
+                newNode = Course(child.getName() + str(addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
                 tree.append(newNode)
-                #print str(newNode)
                 continue
             if len(child.getChildren()) == 0:
-                newNode = Course(child.getName(), child.getState, 1, [], [node])
+                newNode = Course(child.getName() + str(addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
                 tree.append(newNode)
-                #print str(newNode)
             else:
-                createChildNodes(child, node, tree)
-        addSelf = Course(node.getName(), node.getState(), 1, [], [parent])
-        #addSelf.setChildren(node.getChildren())
-        print node.getChildren()
-        tree.append(addSelf)
-        #print str(addSelf)
+                createChildNodes(child, addSelf, tree)
 
-    # Calling createChildNodes, starting with Mother Node (root)
+    #Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(graph[0], None, coursetree)
 
-    # Populate children in coursetree
-    
-    # Recursive function renaming nodes in coursetree to get rid of multiple roots problem
-    def numberCourseName(node):            
-        for child in node.getChildren():                
-            if len(child.getChildren()) == 0:
-                childname = child.getName()
-                addedToTree[childname] += 1
-                child.setName(childname + "hi")
-                print "child name modified"
-            else:            
-                numberCourseName(child)                
-        myname = node.getName()
-        addedToTree[myname] += 1
-        node.setName(myname + "hi")
-       # print node.getName()
-
-    # Calling numberCourseName, starting with Mother Node (root)
-    numberCourseName(coursetree[-1])
+    for i in coursetree:
+        print i
     
     # Going through coursetree and writing to treefile
     f = open(treefile, "w")    
     for course in coursetree:
-        if course.getName() == "Mother Nodehi":
+        if course.getName() == "Mother Node1":
             line = course.getName() + ",\n"
         else:
             line = course.getName() + "," + course.getParents()[0].getName() + "\n"        
         f.write(line)
     f.close()
-    
-    '''
-    # Going through courseTree and writing to treefile
-    f = open(treefile, "w")    
-    for course in courseTree:
-        if course.getName() == "Mother Node":
-            line = "Mother Node0" + ",\n"
-        else:
-            numSpaces = addedToTree[course.getName()]            
-            line = course.getName() + "," + course.getParents()[0].getName() + str(numSpaces) + "\n"
-            addedToTree[course.getName()] += 1
-        f.write(line)
-    f.close()
-    '''
-    '''
-    for node in graph:
-        for child in node.getChildren():
-            nodeCopy = Course(node.getName(), node.getState(), 1, [],[])
-            course = Course(child.getName(), child.getState(), 1, [], [nodeCopy])
-            print str(course)
-    '''
         
 # ============================================
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-#raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 
@@ -367,9 +328,9 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-#categories['Left'][1] = 5
-#categories['Right'][1] = 8
-
+categories['Left'][1] = 5
+categories['Right'][1] = 8
+'''
 # Populating category dictionary with number of credits needed for each
 categories['5tech'][1] = 1
 categories['USH'][1] = 2
@@ -386,6 +347,7 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
+'''
 
 # True Depth Calculation
 checked = []

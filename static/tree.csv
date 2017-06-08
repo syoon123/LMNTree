@@ -1,11 +1,30 @@
-G,F
-F,C
-C,A
-G,F
-F,C
-C,D
-F,G
-G,D
-G,F
-F,D
-D,A
+Mother Node1,
+A2,Mother Node1
+C2,A2
+F2,C2
+G1,F2
+D2,A2
+C4,D2
+F4,C4
+G2,F4
+G4,D2
+F5,G4
+F7,D2
+G5,F7
+B2,Mother Node1
+J2,B2
+K2,J2
+O2,K2
+M2,O2
+N1,M2
+P1,M2
+N2,O2
+L2,J2
+M4,L2
+N3,M4
+P2,M4
+O4,J2
+M6,O4
+N4,M6
+P3,M6
+N5,O4
