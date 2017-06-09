@@ -1,0 +1,156 @@
+Development Log for LMNTree (Pd 9)
+
+==========================================================
+                         DEVLOG
+==========================================================
+<lfirst> - <YYYY-MM-DD> <XX:XX>
+----------------------------------------------------------
+syoon - 2017-06-08 16:41
+ * test generate tree with outputs from traversal
+   * fix bug involving children of duplicate nodes
+ * add numbering system to write to CSV file
+   * writes to tree.csv file to be read
+ * make maybes no longer required
+----------------------------------------------------------
+blu - 2017-06-08 15:38
+ * begin work on popup boxes
+ * fix small typo in solve.py
+----------------------------------------------------------
+zzhen - 2017-06-08 14:46
+ * format output of traversal into JSON
+ * make traverse take list of requested classes as input
+   * remove reqs.csv - deprecated
+ * add tons of debugging infrastructure
+   * debug linkage between traversal and AJAX
+   * debug pruning of tree
+ * prune tree completely before passing to tree generation
+   * remove all pruned nodes from every course remaining
+----------------------------------------------------------
+syoon - 2017-06-08 13:47
+ * complete tree generation algorithm (untested)
+   * implement recursive method to ensure that all the 
+     names of each node are correctly passed and written
+   * use extra spaces to distinguish between similarly 
+     named nodes in the output file
+   * add method to write tree to file
+----------------------------------------------------------
+mbertfield - 2017-06-08 13:39
+ * get generation almost working
+   * fix alignment issues in tree generation
+----------------------------------------------------------
+zzhen - 2017-06-07 16:52
+ * restructure traversal algorithm
+   * add new way to return JSON
+   * change code to ensure runtime consistency
+ * debug many things
+   * added debugging CSV for small-scale testing
+----------------------------------------------------------
+mbertfield - 2017-06-07 15:33
+ * add example tree outputs 
+ * complete tree generation for test csv
+   * allow user to select classes and click next
+   * add visual tree display
+----------------------------------------------------------
+syoon - 2017-06-07 12:56
+ * fix even MORE typos in CSV
+ * debug traversal code 
+   * add code to check for unfulfilled graduation reqs
+----------------------------------------------------------
+blu - 2017-06-07 07:03
+ * fix spacing issues in class_selector
+   * make checkboxes look very nice
+----------------------------------------------------------
+mbertfield - 2017-06-06 01:37
+ * continue work on tree generation
+   * create depth-based system for displaying
+ * fix more CSV typos
+----------------------------------------------------------
+syoon - 2017-06-06 00:49
+ * work on outputting JSON for traverse
+   * add toAJAX to represent data as JSON
+ * add devlog 
+ * finish solve.py (untested) 
+   * start work on tree generation inside traversal
+----------------------------------------------------------
+zzhen - 2017-06-05 22:12
+ * fix more typos in final CSV
+ * fix bug on parent population
+ * add true depth algorithm
+ * add relative depth algorithm (untested)
+----------------------------------------------------------
+syoon - 2017-06-05 15:26
+ * work on populating parents of courselist
+ * continue work on traversal
+   * add code up until pruning
+----------------------------------------------------------
+mbertfield - 2017-06-05 14:23
+ * incorporate d3 into drawing the tree
+   * user can now select classes on sample tree
+----------------------------------------------------------
+syoon - 2017-06-04 23:28
+ * begin work on traversal algorithm
+   * incorporate propagate into code
+ * add final CSV file
+   * fix typos in CSV	
+ * populate category requirements
+----------------------------------------------------------
+mbertfield - 2017-06-04 21:02
+ * ensure that AJAX calls work with no data
+ * begin work on dropdown menu in course_selector.html
+----------------------------------------------------------
+zzhen - 2017-06-04 20:58
+ * give solve.py the ability to parse graph from CSV
+   * add courselist and coursedict structures to solve.py
+   * add category parsing from CSV
+ * add sample CSV for testing
+----------------------------------------------------------
+syoon - 2017-06-04 14:00
+ * add solve.py (method for generating a graph) 
+ * finish propagate function
+   * upwards propagation of required classes and maybes
+----------------------------------------------------------
+syoon - 2017-06-02 14:51
+ * change some mutators and accessors
+ * begin work on propogation in graph.py
+----------------------------------------------------------
+blu - 2017-06-01 14:48
+ * continue work on HTML templates
+   * give checkboxes basic functionality in class_selector
+   * add framework for AJAX routing
+----------------------------------------------------------
+mbertfield - 2017-05-26 14:48
+ * add more code for tree generation
+   * create ability to draw a sample tree
+ * make tree collapsable 
+----------------------------------------------------------
+blu - 2017-05-25 14:49
+ * add basic routing to app.py
+----------------------------------------------------------
+mbertfield - 2017-05-25 15:35
+ * begin to add d3 code for visualization
+----------------------------------------------------------
+zzhen - 2017-05-25 14:52
+ * continue working on database functions
+----------------------------------------------------------
+blu - 2017-05-25 02:28
+ * continue work on html
+----------------------------------------------------------
+blu - 2017-05-22 18:16
+ * begin work on front-end template
+ * add bootstrap files
+----------------------------------------------------------
+mbertfield - 2017-05-22 14:51
+ * start work on app.py
+----------------------------------------------------------
+zzhen - 2017-05-17 14:41
+ * begin work on database functions
+ * add framework
+----------------------------------------------------------
+blu - 2017-05-17 14:28
+ * updated design doc
+   * fixed typo 
+----------------------------------------------------------
+syoon - 2017-05-12 00:14
+ * added initial files
+   * added design doc
+
