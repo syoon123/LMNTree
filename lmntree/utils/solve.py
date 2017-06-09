@@ -1,4 +1,4 @@
-import csv, json
+import csv, json, os
 from graph import Course
 
 # ============================================

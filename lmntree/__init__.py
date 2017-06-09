@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, json
-import sys
+import sys, os
 import csv
 from utils import course_selector, solve
 
