@@ -205,9 +205,6 @@ var x = document.getElementsByClassName("glyphicon-ok");
   for (i = 0; i < y.length; i++) {
       y[i].childNodes[3].style.display = "inline-block";
   }
-  $( function() {
-      $("#dialog").dialog();
-  });
   $(".btn-group").click(function() {
       var text_label = $(this).children()[1];
       var label = $(this).children()[0];
@@ -242,9 +239,10 @@ var x = document.getElementsByClassName("glyphicon-ok");
 	url: "class_selector_check",
 	contentType: "application/json",
 	data: JSON.stringify(data),
-	success: function (data) {
-	    console.log(data);
-	},
+	success: function (result) {
+        var res = {};
+        console.log(res);
+        },
 	error: function (data) {
 	}
 	})
