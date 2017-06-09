@@ -15,7 +15,7 @@ course_selector_courses = course_selector.convert_csv_to_dict()
 def home():
     return render_template('d3.html', csv = f)
 
-@app.route("/class_selector", methods = ['GET'])
+@app.route("/", methods = ['GET'])
 def class_selector():
     art_courses = course_selector_courses["Art"]
     bio_courses = course_selector_courses["Biology"]

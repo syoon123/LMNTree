@@ -165,19 +165,7 @@
   <br>
   <br>
   <div id = "dialog" title="Basic dialog">
-    <h3>Art</h3><hr />
-    {% for item in art_courses %}
-        <div class="[ form-group ]">
-            <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success" autocomplete="off" />
-            <div class="[ btn-group ]">
-                <label for="fancy-checkbox-success" class="[ btn btn-success ]">
-                    <span class="[ glyphicon glyphicon-ok ]"></span>
-                    <span> </span>
-                </label>
-                <label for="fancy-checkbox-success" class="[ btn btn-default active ]">{{ item }}</label>
-            </div>
-        </div>{% endfor %}
-</div>
+  </div>
   <div class = "[ col-xs-12 col-sm-12 col-md-12 col-lg-12]" style = "text-align: center;" >
     <button type = "button" class = "btn btn-danger" id = "submit-initial">Submit</button>
   </div>
@@ -221,6 +209,77 @@ var x = document.getElementsByClassName("glyphicon-ok");
 	  $(text_label).toggleClass("checked");
   }		  
   });
+  $("#submit-second").click(function() {
+      var list = [];
+      var x = document.getElementsByClassName("checked");
+      var i = 0;
+         for (i = 0; i < x.length; i++) {
+         len = x[i].innerHTML.length;
+         list.push(x[i].innerHTML);
+     }
+     var data = {};
+     data.classes = list;
+     data.language = languageTime;
+     data.band = bandTime;
+     data.chorus = chorusTime;
+        $.ajax({
+	type: "POST",
+	url: "class_selector_check",
+	contentType: "application/json",
+	data: JSON.stringify(data),
+    dataType: 'json',
+	success: function (data) {
+        if (data.errcode == 1) {
+            for (item in data.choices) {
+                $("#dialog").append("<h3>");
+                $("#dialog").append("Please select " + data.choices[item][1] + " from " + item);
+                $("#dialog").append("</h3><hr/>");
+                var i = 0;
+                var current_category = data.choices[item][0];
+                for (i = 0; i < current_category.length; i++) {
+                    $("#dialog").append("<div class=\"[ form-group ]\">");
+                    $("#dialog").append("<input type=\"checkbox\" name=\"fancy-checkbox-success\" id=\"fancy-checkbox-success\" autocomplete=\"off\" />");
+                    $("#dialog").append("<div class=\"[ btn-group ]\">");
+                    $("#dialog").append("<label for=\"fancy-checkbox-success\" class=\"[ btn btn-success ]\">");
+                    $("#dialog").append("<span class=\"[ glyphicon glyphicon-ok ]\" style=\"display: none;\"></span>");
+                    $("#dialog").append("<span style=\"display: inline-block;\"> </span>");
+                    $("#dialog").append("</label>");
+                    $("#dialog").append("<label for=\"fancy-checkbox-success\" class=\"[ btn btn-default active ]\">" + current_category[i] + "</label>");
+                    $("#dialog").append("</div>");
+                    $("#dialog").append("</div>");
+                }
+             }
+             $("#dialog").append("<br>");
+             $("#dialog").append("<div>");
+             $("#dialog").append("<button type = \"button\" class = \"btn btn-danger\" id = \"submit-second\">Submit</button>");
+             $("#dialog").append("</div>");
+             $("#dialog").dialog();
+              $(".btn-group").click(function() {
+                    var text_label = $(this).children()[1];
+                    var label = $(this).children()[0];
+                    var check = $(label).children()[0];
+                    var empty_space = $(label).children()[1];
+                    if (check.style.display == "none") {
+                        check.style.display = "inline-block";
+                        empty_space.style.display = "none";
+                        $(text_label).toggleClass("checked");
+                    }
+                    else {
+	                    check.style.display = "none";
+                        empty_space.style.display = "inline-block";
+	                    $(text_label).toggleClass("checked");
+                    }
+            });
+            }
+            else {
+                window.location.replace('/d3test');
+        }
+        },
+	error: function (data) {
+	}
+	})
+});
+
   $("button#submit-initial").click(function() {
      var list = [];
      var x = document.getElementsByClassName("checked");
@@ -239,9 +298,53 @@ var x = document.getElementsByClassName("glyphicon-ok");
 	url: "class_selector_check",
 	contentType: "application/json",
 	data: JSON.stringify(data),
-	success: function (result) {
-        var res = {};
-        console.log(res);
+    dataType: 'json',
+	success: function (data) {
+        if (data.errcode == 1) {
+            for (item in data.choices) {
+                $("#dialog").append("<h3>");
+                $("#dialog").append("Please select " + data.choices[item][1] + " from " + item);
+                $("#dialog").append("</h3><hr/>");
+                var i = 0;
+                var current_category = data.choices[item][0];
+                for (i = 0; i < current_category.length; i++) {
+                    $("#dialog").append("<div class=\"[ form-group ]\">");
+                    $("#dialog").append("<input type=\"checkbox\" name=\"fancy-checkbox-success\" id=\"fancy-checkbox-success\" autocomplete=\"off\" />");
+                    $("#dialog").append("<div class=\"[ btn-group ]\">");
+                    $("#dialog").append("<label for=\"fancy-checkbox-success\" class=\"[ btn btn-success ]\">");
+                    $("#dialog").append("<span class=\"[ glyphicon glyphicon-ok ]\" style=\"display: none;\"></span>");
+                    $("#dialog").append("<span style=\"display: inline-block;\"> </span>");
+                    $("#dialog").append("</label>");
+                    $("#dialog").append("<label for=\"fancy-checkbox-success\" class=\"[ btn btn-default active ]\">" + current_category[i] + "</label>");
+                    $("#dialog").append("</div>");
+                    $("#dialog").append("</div>");
+                }
+             }
+             $("#dialog").append("<br>");
+             $("#dialog").append("<div>");
+             $("#dialog").append("<button type = \"button\" class = \"btn btn-danger\" id = \"submit-second\">Submit</button>");
+             $("#dialog").append("</div>");
+             $("#dialog").dialog();
+              $(".btn-group").click(function() {
+                    var text_label = $(this).children()[1];
+                    var label = $(this).children()[0];
+                    var check = $(label).children()[0];
+                    var empty_space = $(label).children()[1];
+                    if (check.style.display == "none") {
+                        check.style.display = "inline-block";
+                        empty_space.style.display = "none";
+                        $(text_label).toggleClass("checked");
+                    }
+                    else {
+	                    check.style.display = "none";
+                        empty_space.style.display = "inline-block";
+	                    $(text_label).toggleClass("checked");
+                    }
+            });
+            }
+            else {
+                window.location.replace('/d3test');
+        }
         },
 	error: function (data) {
 	}
