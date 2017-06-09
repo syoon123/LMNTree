@@ -4,7 +4,7 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-ROOT = ".."
+ROOT = "."
 TREEPATH = ROOT + "/static/tree.csv"
 COURSEPATH = ROOT + "/static/stuy_courses.csv"
 TESTPATH = ROOT + "/static/test.csv"
