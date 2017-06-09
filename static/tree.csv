@@ -1,0 +1,31 @@
+Course,Prereq,State
+Mother Node ,
+A  ,Mother Node ,1
+C  ,A  ,2
+F  ,C  ,1
+G ,F  ,<bound method Course.getState of COURSE G>
+D  ,A  ,1
+C    ,D  ,2
+F    ,C    ,1
+G  ,F    ,<bound method Course.getState of COURSE G>
+G    ,D  ,1
+F     ,G    ,<bound method Course.getState of COURSE F>
+F       ,D  ,1
+G     ,F       ,<bound method Course.getState of COURSE G>
+B  ,Mother Node ,1
+J  ,B  ,1
+K  ,J  ,1
+O  ,K  ,1
+M  ,O  ,1
+N ,M  ,<bound method Course.getState of COURSE N>
+P ,M  ,<bound method Course.getState of COURSE P>
+N  ,O  ,<bound method Course.getState of COURSE N>
+L  ,J  ,1
+M    ,L  ,1
+N   ,M    ,<bound method Course.getState of COURSE N>
+P  ,M    ,<bound method Course.getState of COURSE P>
+O    ,J  ,1
+M      ,O    ,1
+N    ,M      ,<bound method Course.getState of COURSE N>
+P   ,M      ,<bound method Course.getState of COURSE P>
+N     ,O    ,<bound method Course.getState of COURSE N>

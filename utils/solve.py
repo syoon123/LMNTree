@@ -212,6 +212,8 @@ def generateTree(graph, treefile):
 
     #Calling createChildNodes, starting with Mother Node (root)
     createChildNodes(graph[0], None, coursetree)
+    for i in coursetree:
+        print i
 
     # Going through coursetree and writing to treefile
     f = open(treefile, "w")
@@ -223,13 +225,14 @@ def generateTree(graph, treefile):
             line = course.getName() + "," + course.getParents()[0].getName() + "," + str(course.getState()) + "\n"        
         f.write(line)
     f.close()
+    print "wrote to file"
         
 # ============================================
 # Data Parsing From CSV 
 # ============================================
 # Name, Parents, NumReq, State, Categories, 
-#raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
-raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
+raw = open(TESTPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:] # Debugging
+#raw = open(COURSEPATH, "r").read().strip().replace("\r\n", "\n").split("\n")[1:]
 courselist = []
 coursedict = {}
 
@@ -275,7 +278,7 @@ for c in courselist:
             categories[categ] = [0,0] # [requested, required]
 
 # Debugging Categories
-'''
+
 categories['Left'][1] = 5
 categories['Right'][1] = 8
 '''
@@ -295,7 +298,7 @@ categories['Language'][1] = 6
 categories['JuniorEnglish'][1] = 1
 categories['SeniorEnglish'][1] = 1
 categories['Global'][1] = 4
-
+'''
 # True Depth Calculation
 checked = []
 tocheck = [i for i in courselist if len(i.getParents()) == 0] # Seeded with Mother Node
