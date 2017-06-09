@@ -1,0 +1,31 @@
+Course,Prereq,State
+Mother Node ,
+A  ,Mother Node ,1
+C  ,A  ,2
+F  ,C  ,1
+G ,F  ,1
+D  ,A  ,1
+C    ,D  ,2
+F    ,C    ,1
+G  ,F    ,1
+G    ,D  ,1
+F     ,G    ,1
+F       ,D  ,1
+G     ,F       ,1
+B  ,Mother Node ,1
+J  ,B  ,1
+K  ,J  ,1
+O  ,K  ,1
+M  ,O  ,1
+N ,M  ,1
+P ,M  ,1
+N  ,O  ,1
+L  ,J  ,1
+M    ,L  ,1
+N   ,M    ,1
+P  ,M    ,1
+O    ,J  ,1
+M      ,O    ,1
+N    ,M      ,1
+P   ,M      ,1
+N     ,O    ,1
