@@ -12,12 +12,12 @@ DIR = os.path.dirname('__init__.py')
 DIR += '/'
 f = open('static/tree.csv','r').read()
 course_selector_courses = course_selector.convert_csv_to_dict()
-@app.route("/d3test", methods = ['GET', 'POST'])
+@app.route("/", methods = ['GET', 'POST'])
 # displays the data visualization
 def home():
     return render_template('d3.html', csv = f)
 
-@app.route("/", methods = ['GET'])
+@app.route("/broken_selector", methods = ['GET'])
 def class_selector():
     art_courses = course_selector_courses["Art"]
     bio_courses = course_selector_courses["Biology"]
