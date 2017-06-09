@@ -8,9 +8,9 @@ app.secret_key = 'imagine-you-are-a-light-molecule...'
 
 state = 'New York'
 year = '1977'
-DIR = os.path.dirname('__init__.py')
+DIR = os.path.dirname(__file__)
 DIR += '/'
-f = open('static/tree.csv','r').read()
+f = open(DIR + 'static/tree.csv','r').read()
 course_selector_courses = course_selector.convert_csv_to_dict()
 @app.route("/", methods = ['GET', 'POST'])
 # displays the data visualization
