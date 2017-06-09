@@ -230,7 +230,7 @@ var x = document.getElementsByClassName("glyphicon-ok");
      var i = 0;
      for (i = 0; i < x.length; i++) {
          len = x[i].innerHTML.length;
-         list.push((x[i].innerHTML).slice(1, len));
+         list.push(x[i].innerHTML);
      }
      var data = {};
      data.classes = list;
