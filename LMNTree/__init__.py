@@ -8,7 +8,9 @@ app.secret_key = 'imagine-you-are-a-light-molecule...'
 
 state = 'New York'
 year = '1977'
-f = open('static/tree.csv','r').read()
+DIR = os.path.dirname('__init__.py')
+DIR += '/'
+f = open(DIR + 'static/tree.csv','r').read()
 course_selector_courses = course_selector.convert_csv_to_dict()
 @app.route("/d3test", methods = ['GET', 'POST'])
 # displays the data visualization
