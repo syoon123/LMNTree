@@ -4,7 +4,7 @@ from graph import Course
 # ============================================
 # Constants
 # ============================================
-ROOT = "."
+ROOT = ".."
 TREEPATH = ROOT + "/static/tree.csv"
 COURSEPATH = ROOT + "/static/stuy_courses.csv"
 TESTPATH = ROOT + "/static/test.csv"
@@ -201,11 +201,11 @@ def generateTree(graph, treefile):
         for child in node.getChildren():
             addedToTree[child.getName()] += 1
             if child in node.getParents():                
-                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
+                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState(), 1, [], [addSelf])
                 tree.append(newNode)
                 continue
             if len(child.getChildren()) == 0:
-                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState, 1, [], [addSelf])
+                newNode = Course(child.getName() + (" " * addedToTree[child.getName()]), child.getState(), 1, [], [addSelf])
                 tree.append(newNode)
             else:
                 createChildNodes(child, addSelf, tree)
@@ -222,7 +222,9 @@ def generateTree(graph, treefile):
         if course.getName() == "Mother Node ":
             line = course.getName() + ",\n"
         else:
+            # print course, course.getState() # Debugging
             line = course.getName() + "," + course.getParents()[0].getName() + "," + str(course.getState()) + "\n"        
+        # print line # Debugging
         f.write(line)
     f.close()
     print "wrote to file"
