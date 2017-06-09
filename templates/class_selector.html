@@ -229,7 +229,8 @@ var x = document.getElementsByClassName("glyphicon-ok");
      var x = document.getElementsByClassName("checked");
      var i = 0;
      for (i = 0; i < x.length; i++) {
-         list.push(x[i].innerHTML);
+         len = x[i].innerHTML.length;
+         list.push((x[i].innerHTML).slice(0, len - 1));
      }
      var data = {};
      data.classes = list;
