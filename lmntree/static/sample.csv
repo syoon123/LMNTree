@@ -1,0 +1,220 @@
+Course,Prereq
+Mother Node,
+Freshman Biology 1,Mother Node
+Freshman Composition 1,Mother Node
+Algebra and Geometry 1,Mother Node
+Geometry 1,Mother Node
+Language 1,Mother Node
+Art Appreciation,Mother Node
+Music Appreciation,Mother Node
+PE 1,Mother Node
+Global History 1,Mother Node
+AP Human Geography 1,Mother Node
+Freshman Biology 2,Freshman Biology 1
+Freshman Composition 2,Freshman Composition 1
+Algebra and Geometry 2,Algebra and Geometry 1
+Geometry 2,Geometry 1
+PE 2,PE 1
+Global History 2,Global History 1
+Language 2,Language 1
+AP Human Geography 2,AP Human Geography 1
+Trigonometry 1,Algebra and Geometry 2
+Trigonometry 2,Trigonometry 1
+Advanced Algebra 1,Trigonometry 2
+Advanced Algebra 2,Advanced Algebra 1
+PreCalculus 1,Trigonometry 2
+PreCalculus 2,PreCalculus 1
+Calculus Applications 1,PreCalculus 2
+Calculus Applications 2,Calculus Applications 1
+Calculus AB 1,PreCalculus 2
+Calculus AB 2,Calculus AB 1
+Calculus BC 1,PreCalculus 2
+Calculus BC 2,Calculus BC 1
+Mathematical Explorations 1,PreCalculus 2
+Mathematical Explorations 2,Mathematical Explorations 1
+Human Reasoning 1,PreCalculus 2
+Human Reasoning 2,Human Reasoning 1
+AP Statistics 1,Trigonometry 2
+AP Statistics 2,AP Statistics 1
+Multivariable Mathematics 1,AP Calculus and PreCalculus 2
+Multivariable Mathematics 2,Multivariable Mathematics 1
+AP Calculus and PreCalculus 1,Trigonometry 2
+AP Calculus and PreCalculus 2,AP Calculus and PreCalculus 1
+Mathematical Analysis of Sports,Trigonometry 2
+Mathematics of Financial Markets,Trigonometry 2
+Statistics ,Trigonometry 2
+Math Research,Mother Node
+Math Intel 1,Trigonometry 2
+Math Intel 2,Math Intel 1
+Math Intel 3,Math Intel 2
+Actuarial Mathematics,Calculus BC 2
+Introduction to Computer Science 1,Algebra and Geometry 2
+Introduction to Computer Science 2,Introduction to Computer Science 1
+AP Computer Science 1,Introduction to Computer Science 2
+AP Computer Science 2,AP Computer Science 1
+Systems Level Programming,AP Computer Science 2
+Software Development 1,AP Computer Science 2
+Software Development 2,Software Development 1
+Computer Graphics ,AP Computer Science 2
+Health,PE 4
+Computer Technology,Health
+Digital Photography,Health
+Graphics Arts Communication,Health
+Introduction to Architecture,Health
+Introduction to Interior Design,Health
+Jewelery Design,Health
+Principles of Technology - Mechanisms,Health
+Robotics,Health
+Technical and Scientific Illustration,Health
+Video Production,Health
+Advanced Video Production 1,Computer Technology
+Advanced Video Production 2,Advanced Video Production 1
+Advanced Woodworking 1,Computer Technology
+Advanced Woodworking 2,Advanced Woodworking 1
+Architecture 1,Computer Technology
+Architecture 2,Architecture 1
+Ceramics 1,Computer Technology
+Ceramics 2,Ceramics 1
+Photography 1,Computer Technology
+Photography 2,Photography 1
+Robotics Engineering 1,Computer Technology
+Robotics Engineering 2,Robotics Engineering 1
+Technology Graphic Communications,Introduction to Computer Science 1
+Digital Video,Health
+Acrylic Painting 1,Computer Technology
+Acrylic Painting 2,Acrylic Painting 1
+Computer Graphic Design,Health
+Studio Art: Mixed Media,Health
+Water Color,Health
+Biological Lab Techniques,Freshman Biology 2
+Vertebrate Zoology,Freshman Biology 2
+Anthropology and Sociobiology,Chemistry 2
+Forensic Science,Chemistry 2
+Fundamentals of Nutritional Science,Freshman Biology 2
+Genetics Research,Freshman Biology 2
+Human Diseases,Freshman Biology 2
+Human Pathophysiology,Chemistry 2
+Medical Ethics,Chemistry 2
+Medical Human Genetics,Freshman Biology 2
+Medical Internship,Medical Ethics
+Molecular Genetics,Freshman Biology 2
+Molecular Science,Freshman Biology 2
+Topics in Neurobiology,Freshman Biology 2
+Geology,Chemistry 2
+Meteorology,Chemistry 2
+Oceanography,Chemistry 2
+Urban Ecology,Chemistry 2
+AP Biology 1,Biological Lab Techniques
+AP Biology 2,AP Biology 1
+AP Environmental Science 1,Geology
+AP Environmental Science 2,AP Environmental Science 1
+AP Psychology 1,Chemistry 2
+AP Psychology 2,AP Psychology 1
+Chemistry 1,Freshman Biology 2
+Chemistry 2,Chemistry 1
+AP Chemistry 1,Chemistry 2
+AP Chemistry 2,AP Chemistry 1
+Advanced Chemistry Lab,Chemistry 2
+Organic Chemistry 1,Chemistry 2
+Organic Chemistry 2,Organic Chemistry 1
+Physical Chemistry,Chemistry 2
+Analytical Chemistry,AP Chemistry 2
+Chemistry Research 1,Chemistry 2
+Chemistry Research 2,Chemistry Research 1
+Physics 1,Chemistry 2
+Physics 2,Physics 1
+AP Physics B 1,Physics 2
+AP Physics B 2,AP Physics B 1
+AP Physics C 1,Calculus BC 2
+AP Physics C 2,AP Physics C 1
+Astronomy,Physics 2
+Digital Electronics,Analogue Electronics
+Analogue Electronics,Physics 2
+Applied Science,Physics 2
+Applied Engineering,Physics 2
+Experimental Physics,Physics 2
+Plasma Physics,Physics 2
+Modern Physics 1,Physics 2
+Modern Physics 2,Modern Physics 1
+Principles of Engineering,Physics 2
+Physics Research 1,Physics 2
+Physics Research 2,Physics Research 1
+European Literature 1,Freshman Composition 2
+European Literature 2,European Literature 1
+American Literature,European Literature 2
+AP Contemporaries and Classics 1,European Literature 2
+AP Contemporaries and Classics 2,AP Contemporaries and Classics 1
+AP American Voices 1,European Literature 2
+AP American Voices 2,AP American Voices 1
+AP Places and Perspectives 1,European Literature 2
+AP Places and Perspectives 2,AP Places and Perspectives 1
+Acting Workshop,American Literature
+Asian American Literature,European Literature 2
+Creative Nonfiction,European Literature 2
+Poetry Workshop,European Literature 2
+Writers Workshop,European Literature 2
+DNE,Acting Workshop
+British Literature 1,DNE
+British Literature 2,DNE
+AP Great Books 1,DNE
+AP Great Books 2,AP Great Books 1
+AP Society and Self 1,DNE
+AP Society and Self 2,AP Society and Self 1
+AP Psychology and Literature 1,DNE
+AP Psychology and Literature 2,AP Psychology and Literature 1
+Acting Workshop(senior year),DNE
+Creative Nonfiction (senior year),DNE
+Existentialism,DNE
+Poetry Workshop (senior year),DNE
+Science Fiction,DNE
+Shakespearean Literature,DNE
+Women's Voices,DNE
+PE 3,PE 2
+PE 4,PE 3
+Basketball,PE 4
+In-Line Skating,PE 4
+Lifeguarding,PE 4
+Polar Bear,PE 4
+Step Aerobics,PE 4
+Swimming,PE 4
+Volleyball,PE 4
+Weight Training,PE 4
+DNP,PE 4
+Ballroom,DNP
+In-Line Skating (senior),DNP
+Stuy Box,DNP
+Swimming (senior year),DNP
+Polar Bear (senior year),DNP
+Weight Training (senior year),DNP
+Global 3,AP Human Geography 2
+Global 4,Global 3
+AP World 1,AP Human Geography 2
+AP World 2,AP World 1
+AP Euro 1,AP Human Geography 2
+AP Euro 2,AP Euro 1
+US History 1,Global 4
+US History 2,US History 1
+AP US History 1,Global 4
+AP US History 2,AP US History 1
+American Government,AP US History 2
+AP American Government,AP US History 2
+AP Comparative Government,American Government
+AP Macroeconomics,AP US History 2
+AP Microeconomics,AP Macroeconomics
+Economics,AP US History 2
+Geopolitics,AP US History 2
+Modern China,AP US History 2
+NYC History,AP US History 2
+Topics in Law,AP US History 2
+Criminal Law,AP US History 2
+Civil Law,AP US History 2
+Jewish History,AP US History 2
+Western Political Thought,AP US History 2
+AP Social Psychology,AP US History 2
+Upper Level AP Human Geography,AP US History 2
+Language 3,Language 2
+Language 4,Language 3
+Language 5,Language 4
+Language 6,Language 5
+Language 7,Language 6
+Language 8,Language 7
