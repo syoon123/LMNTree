@@ -5,7 +5,7 @@ from graph import Course
 # Constants
 # ============================================
 
-ROOT = os.path.dirname('__file__') 
+ROOT = os.path.dirname('__file__') + '/..' 
 TREEPATH = ROOT + "/static/tree.csv"
 COURSEPATH = ROOT + "/static/stuy_courses.csv"
 TESTPATH = ROOT + "/static/test.csv"

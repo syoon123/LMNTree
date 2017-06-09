@@ -1,5 +1,5 @@
 import csv, os
-DIR = os.path.dirname('__file__') + "/"
+DIR = os.path.dirname('__file__') + "/../"
 def convert_csv_to_dict():
     f = open(DIR + "/utils/data/StuyCourses.csv")
     dict = {}
